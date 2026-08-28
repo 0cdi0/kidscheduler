@@ -564,7 +564,10 @@
   // means "everyone" - but a bare "alle" (e.g. "MSK alle") only means "every
   // MSK group", not "every class", so it does NOT override a grade
   // restriction stated elsewhere in the same line.
-  const CLASS_TOKEN_RE = /\b([1-4][A-D]|MSK)\b/g;
+  // Austrian primary schools run grades 1-4, with a handful of parallel
+  // classes per grade (1A, 1B, ...) depending on school size - rarely more
+  // than a few, but A-F gives some headroom over the common A-D range.
+  const CLASS_TOKEN_RE = /\b([1-4][A-F]|MSK)\b/g;
   const GRADE_PHRASE_RE = /((?:[1-4]\.\s*(?:[+,]|und)?\s*)+)Klassen?\b/gi;
   const ALL_CLASSES_RE = /\balle\s+Klassen\b/i;
 
