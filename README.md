@@ -44,16 +44,16 @@ real app, still pointed at the same Tailscale address.
 - **Flip Selection** — swaps who's currently shown for who's currently hidden
   (select your kids, hit Flip, and you're looking at your wife's kids' view).
 - **Click any day** — set each kid's status for that day independently
-  (With us / With the other parent / Uncertain), add a note, and add
-  per-kid appointments. When a kid's day is left as "away", the calendar
-  shows them as being with whichever parent is set as that kid's group's
-  "other parent" (configurable in Settings → Groups) instead of just blank.
-- **Export** (top right):
-  - *iCalendar (.ics)* — the whole currently-selected school year for the
-    kids currently selected, importable into Apple Calendar / Google
-    Calendar / Outlook.
-  - *PDF* / *PNG* — a snapshot of whichever view (month/week/year) is
-    currently on screen, for the current selection.
+  (With us / With the other parent), add a note, and add per-kid
+  appointments. A kid is always either with you or with the other parent
+  for that group (configurable in Settings → Groups) — there's no
+  in-between "unconfirmed" state to maintain.
+- **Export** (top right) — always matches whatever's currently on screen:
+  the kids you have selected, and the month/week/school-year you're
+  currently viewing.
+  - *iCalendar (.ics)* — importable into Apple Calendar / Google Calendar /
+    Outlook.
+  - *PDF* / *PNG* — a snapshot of the current view.
 
 ## Settings (⚙ top right)
 
@@ -74,13 +74,30 @@ real app, still pointed at the same Tailscale address.
   [date.nager.at](https://date.nager.at) API. This does **not** include
   school break periods (Ferien) — those aren't public holidays and there's
   no reliable free feed for them, so add/edit those manually just below.
-- **Appointments** — one-off appointments per kid, either added one at a
-  time or bulk-imported from a CSV/Excel export (columns: `date, title,
-  notes`; dates as `YYYY-MM-DD` or `DD.MM.YYYY`). The importer previews
-  every row and flags anything it can't parse before you commit.
-  If your school hands you a scanned PDF instead of a spreadsheet, transcribe
-  it into a CSV for now (Excel → Save As → CSV) — ask for a PDF importer
-  once you've got a real example on hand to design it around.
+- **Appointments** — one-off appointments per kid, added one at a time or
+  bulk-imported two ways, both landing in the same editable preview (edit
+  any date/title/note, or remove a row, before anything is actually saved):
+  - *CSV/Excel* — columns `date, title, notes`; dates as `YYYY-MM-DD` or
+    `DD.MM.YYYY`.
+  - *Scanned/photographed PDF* — for a school notice with no selectable
+    text. Runs OCR on the server (needs `poppler-utils` and `tesseract-ocr`
+    with German language data installed there — see **Optional: PDF
+    import** below). OCR on a real school flyer is never perfect, so
+    always check the preview before importing; the raw extracted text is
+    also shown so you can fix it and re-parse without re-uploading.
+
+## Optional: PDF import (OCR)
+
+The scanned-PDF appointment importer needs two system packages that aren't
+required for anything else in the app:
+
+```bash
+sudo apt install poppler-utils tesseract-ocr tesseract-ocr-deu
+```
+
+Without these installed, every other feature works fine — you'll just get a
+clear error if you try the PDF import path. CSV/Excel import needs nothing
+extra.
 
 ## Data
 

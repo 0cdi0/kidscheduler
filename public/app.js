@@ -3,7 +3,7 @@
 
   const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const WEEKDAYS_MIN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-  const STATUS_ORDER = ['away', 'with-us', 'uncertain'];
+  const STATUS_ORDER = ['away', 'with-us'];
   const STORAGE_KEY = 'kidscheduler.selectedKids';
 
   let schedule = null;
@@ -328,12 +328,11 @@
     for (const w of WEEKDAYS) row.appendChild(Object.assign(document.createElement('div'), { textContent: w }));
   }
 
-  function buildKidTag(kid, status) {
+  function buildKidTag(kid) {
     const tag = document.createElement('div');
-    tag.className = 'kid-tag' + (status === 'uncertain' ? ' uncertain' : '');
-    tag.style.setProperty('--tag-color', kid.color);
+    tag.className = 'kid-tag';
     tag.style.background = kid.color;
-    tag.textContent = kid.name + (status === 'uncertain' ? ' ?' : '');
+    tag.textContent = kid.name;
     return tag;
   }
 
@@ -379,9 +378,8 @@
       tags.className = 'day-kid-tags';
       for (const kid of activeKids()) {
         if (!selectedKids.has(kid.id)) continue;
-        const status = dayData && dayData.kids && dayData.kids[kid.id];
-        if (!status) continue;
-        tags.appendChild(buildKidTag(kid, status));
+        if (!(dayData && dayData.kids && dayData.kids[kid.id])) continue;
+        tags.appendChild(buildKidTag(kid));
       }
       cellEl.appendChild(tags);
 
@@ -434,9 +432,9 @@
         const status = dayData && dayData.kids && dayData.kids[kid.id];
         const row = document.createElement('div');
         if (status) {
-          row.className = 'week-kid-row' + (status === 'uncertain' ? ' uncertain' : '');
+          row.className = 'week-kid-row';
           row.style.background = kid.color;
-          row.textContent = kid.name + (status === 'uncertain' ? ' (unconfirmed)' : '');
+          row.textContent = kid.name;
         } else {
           const otherLabel = otherParentLabelFor(kid);
           row.className = 'week-kid-row ghost';
@@ -557,7 +555,7 @@
       name.textContent = kid.name;
 
       const otherLabel = otherParentLabelFor(kid);
-      const labels = { away: otherLabel ? `With ${otherLabel}` : 'Away', 'with-us': 'With us', uncertain: 'Uncertain' };
+      const labels = { away: otherLabel ? `With ${otherLabel}` : 'Away', 'with-us': 'With us' };
 
       const seg = document.createElement('div');
       seg.className = 'segmented';
@@ -752,12 +750,32 @@
     return String(s).replace(/\\/g, '\\\\').replace(/,/g, '\\,').replace(/;/g, '\\;').replace(/\n/g, '\\n');
   }
 
-  function exportICS() {
+  // The date range for the view currently on screen, so "Export" always
+  // means "what I'm looking at right now" - a month, a week, or (for Year,
+  // which already shows a whole school year) that year.
+  function currentViewRange() {
+    if (view === 'month') {
+      const y = focusDate.getFullYear();
+      const m = focusDate.getMonth();
+      return [toISO(y, m, 1), toISO(y, m, new Date(y, m + 1, 0).getDate())];
+    }
+    if (view === 'week') {
+      const start = startOfWeekMonday(focusDate);
+      const end = new Date(start); end.setDate(end.getDate() + 6);
+      return [isoOfDate(start), isoOfDate(end)];
+    }
     const sy = currentSchoolYear();
+    return sy ? [sy.start, sy.end] : [null, null];
+  }
+
+  function exportICS() {
+    const [rangeStart, rangeEnd] = currentViewRange();
     const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Kid Scheduler//EN', 'CALSCALE:GREGORIAN'];
     const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
-    const isoDates = Object.keys(schedule.days).filter((iso) => !sy || (iso >= sy.start && iso <= sy.end)).sort();
+    const isoDates = Object.keys(schedule.days)
+      .filter((iso) => !rangeStart || (iso >= rangeStart && iso <= rangeEnd))
+      .sort();
     for (const iso of isoDates) {
       const day = schedule.days[iso];
       if (!day.kids) continue;
@@ -773,7 +791,7 @@
           `DTSTAMP:${stamp}`,
           `DTSTART;VALUE=DATE:${dateCompact}`,
           `DTEND;VALUE=DATE:${endCompact}`,
-          `SUMMARY:${icsEscape(kid.name + (status === 'uncertain' ? ' (?)' : ''))}`,
+          `SUMMARY:${icsEscape(kid.name)}`,
           `CATEGORIES:${icsEscape(kid.name)}`,
           'END:VEVENT'
         );
@@ -781,7 +799,7 @@
     }
     lines.push('END:VCALENDAR');
     const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-    downloadBlob(blob, `kidscheduler-${slugSelection()}-${(sy ? sy.label : 'all').replace('/', '-')}.ics`);
+    downloadBlob(blob, `kidscheduler-${viewSlug()}-${slugSelection()}.ics`);
   }
 
   function currentViewElement() {

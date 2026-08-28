@@ -1,8 +1,14 @@
 const express = require('express');
+const multer = require('multer');
 const fs = require('fs');
+const fsp = require('fs/promises');
 const path = require('path');
 const os = require('os');
 const crypto = require('crypto');
+const { execFile } = require('child_process');
+const { promisify } = require('util');
+
+const execFileAsync = promisify(execFile);
 
 const DATA_PATH = path.join(__dirname, 'data', 'schedule.json');
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
@@ -11,6 +17,8 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json({ limit: '5mb' }));
 app.use(express.static(PUBLIC_DIR));
+
+const pdfUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 25 * 1024 * 1024 } });
 
 function readSchedule() {
   return JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
@@ -78,7 +86,7 @@ function schoolYearForDateLocked(schedule, iso) {
   return year ? { ...year, locked: effectiveLock(schedule, year) } : null;
 }
 
-const VALID_KID_STATUS = new Set(['with-us', 'uncertain']);
+const VALID_KID_STATUS = new Set(['with-us']);
 
 // ---------------- Schedule ----------------
 
@@ -470,6 +478,63 @@ app.post('/api/appointments/import', (req, res) => {
 
   if (created.length) writeSchedule(schedule);
   res.json({ importedCount: created.length, results });
+});
+
+// Extracts text from one page of an uploaded PDF via OCR, for scanned
+// school notices that have no text layer at all (a photographed/scanned
+// sheet, not a "born digital" PDF). Requires poppler-utils and
+// tesseract-ocr (+ German language data) to be installed on the host -
+// see README. The client turns the returned text into appointment rows.
+app.post('/api/appointments/ocr-pdf', pdfUpload.single('file'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'file is required' });
+  if (req.file.buffer.slice(0, 4).toString('latin1') !== '%PDF') {
+    return res.status(400).json({ error: 'file does not look like a PDF' });
+  }
+  const page = Number(req.body.page) || 1;
+  if (!Number.isInteger(page) || page < 1 || page > 500) {
+    return res.status(400).json({ error: 'page must be a positive page number' });
+  }
+
+  const workDir = path.join(os.tmpdir(), `kidsched-ocr-${crypto.randomUUID()}`);
+  await fsp.mkdir(workDir);
+  const pdfPath = path.join(workDir, 'input.pdf');
+  const pngPrefix = path.join(workDir, 'page');
+
+  try {
+    await fsp.writeFile(pdfPath, req.file.buffer);
+
+    try {
+      await execFileAsync('pdftoppm', ['-png', '-r', '300', '-f', String(page), '-l', String(page), pdfPath, pngPrefix], { timeout: 30000 });
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return res.status(501).json({ error: 'poppler-utils (pdftoppm) is not installed on this server. See README for setup.' });
+      }
+      throw err;
+    }
+
+    const generated = (await fsp.readdir(workDir)).filter((f) => f.startsWith('page') && f.endsWith('.png'));
+    if (!generated.length) {
+      return res.status(400).json({ error: `Could not render page ${page} - does the PDF have that many pages?` });
+    }
+    const pngPath = path.join(workDir, generated[0]);
+
+    let text;
+    try {
+      const { stdout } = await execFileAsync('tesseract', [pngPath, 'stdout', '-l', 'deu', '--psm', '4'], { timeout: 60000, maxBuffer: 10 * 1024 * 1024 });
+      text = stdout;
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        return res.status(501).json({ error: 'tesseract-ocr is not installed on this server. See README for setup.' });
+      }
+      throw err;
+    }
+
+    res.json({ page, text });
+  } catch (err) {
+    res.status(500).json({ error: `OCR failed: ${err.message}` });
+  } finally {
+    await fsp.rm(workDir, { recursive: true, force: true });
+  }
 });
 
 app.put('/api/appointments/:id', (req, res) => {

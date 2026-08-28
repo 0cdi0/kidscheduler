@@ -126,16 +126,42 @@
           <button type="submit" class="btn small">Add appointment</button>
         </form>
 
-        <h3>Bulk import from CSV / Excel</h3>
+        <h3>Bulk import</h3>
+        <p class="settings-hint">Both ways below end up at the same editable preview &mdash; nothing is added until you check it over and click Import.</p>
+        <div class="inline-form">
+          <label for="importKidId" style="font-size:12.5px;color:var(--text-muted)">Import target kid:</label>
+          <select id="importKidId"></select>
+        </div>
+
+        <h4 style="margin:14px 0 4px;font-size:12.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.03em">From CSV / Excel</h4>
         <p class="settings-hint">
           Export the school's list to CSV (from Excel: File &rarr; Save As &rarr; CSV) with columns
           <code>date, title, notes</code> (dates as <code>YYYY-MM-DD</code> or <code>DD.MM.YYYY</code>).
-          Pick which kid the file belongs to, then preview before importing.
         </p>
         <div class="inline-form">
-          <select id="importKidId"></select>
           <input type="file" id="importFile" accept=".csv,text/csv" />
         </div>
+
+        <h4 style="margin:16px 0 4px;font-size:12.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.03em">From a scanned/photographed PDF</h4>
+        <p class="settings-hint">
+          For a school notice that's a photo or scan (no selectable text) rather than a spreadsheet.
+          Uses OCR on the server, so it needs <code>poppler-utils</code> and <code>tesseract-ocr</code>
+          (+ German language data) installed there &mdash; see the README. OCR on a school flyer is
+          <strong>never perfect</strong> &mdash; always check the preview row by row before importing.
+        </p>
+        <div class="inline-form">
+          <input type="file" id="importPdfFile" accept="application/pdf" />
+          <label for="importPdfPage" style="font-size:12.5px;color:var(--text-muted)">Page:</label>
+          <input type="number" id="importPdfPage" value="1" min="1" style="width:70px" />
+          <button id="ocrExtractBtn" class="btn small">Extract from PDF</button>
+          <span id="ocrStatus" class="settings-hint"></span>
+        </div>
+        <details id="ocrRawDetails" class="hidden" style="margin-top:8px">
+          <summary style="cursor:pointer;font-size:12px;color:var(--text-muted)">Show raw OCR text (edit and click Re-parse if it misread something structurally)</summary>
+          <textarea id="ocrRawText" rows="10" style="width:100%;margin-top:6px;font-family:ui-monospace,monospace;font-size:11.5px;padding:8px;border:1px solid var(--border-strong);background:var(--panel);color:var(--text)"></textarea>
+          <button id="ocrReparseBtn" class="btn small" style="margin-top:6px">Re-parse text above</button>
+        </details>
+
         <div id="importPreview"></div>
 
         <h3>All appointments</h3>

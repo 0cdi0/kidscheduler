@@ -232,12 +232,6 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
 .legend-swatch { width: 12px; height: 12px; flex: none; border: 1px solid var(--border-strong); }
 .legend-swatch.holiday { background: var(--holiday-bg); border-color: var(--holiday-border); }
 .legend-swatch.break { background: var(--break-bg); border-color: var(--border-strong); }
-.legend-tag {
-  font-size: 10px;
-  padding: 1px 4px;
-  border: 1px dashed var(--border-strong);
-  color: var(--text-muted);
-}
 .legend-cake { font-size: 13px; }
 
 /* ---------- Calendar ---------- */
@@ -340,16 +334,6 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
   text-overflow: ellipsis;
   line-height: 1.5;
 }
-.kid-tag.uncertain {
-  background: repeating-linear-gradient(
-    135deg,
-    var(--tag-color) 0px,
-    var(--tag-color) 6px,
-    rgba(255, 255, 255, 0.35) 6px,
-    rgba(255, 255, 255, 0.35) 12px
-  );
-}
-
 .day-note-dot {
   position: absolute;
   bottom: 4px;

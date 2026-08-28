@@ -924,8 +924,8 @@
     },
     "2026-12-31": {
       "kids": {
-        "philipp": "uncertain",
-        "johannes": "uncertain"
+        "philipp": "with-us",
+        "johannes": "with-us"
       },
       "notes": "Silvester"
     },
@@ -1144,10 +1144,10 @@
     },
     "2027-02-04": {
       "kids": {
-        "aleks": "uncertain",
-        "luis": "uncertain",
-        "philipp": "uncertain",
-        "johannes": "uncertain"
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
       },
       "notes": null
     },
@@ -2140,10 +2140,10 @@
     },
     "2027-07-03": {
       "kids": {
-        "aleks": "uncertain",
-        "luis": "uncertain",
-        "philipp": "uncertain",
-        "johannes": "uncertain"
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
       },
       "notes": null
     },

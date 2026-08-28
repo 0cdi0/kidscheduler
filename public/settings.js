@@ -442,7 +442,7 @@
     } catch (err) { alert(err.message); }
   });
 
-  // ---------------- CSV import ----------------
+  // ---------------- Bulk import (CSV or OCR'd PDF -> shared preview) ----------------
 
   function parseCSVLine(line) {
     const result = [];
@@ -489,50 +489,170 @@
     return null;
   }
 
+  function addDaysISO(iso, n) {
+    const d = new Date(iso + 'T00:00:00');
+    d.setDate(d.getDate() + n);
+    return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
+  }
+
+  const WEEKDAY_WORD_RE = '(?:Mo|Di|Mi|Do|Fr|Sa|So)(?:ntag|enstag|ttwoch|nnerstag|eitag|mstag|nntag)?';
+
+  // Turns OCR'd (or otherwise messy) free text from a school notice into
+  // {rawDate, title, notes} rows using the shape of the one real example
+  // we've seen: "<Title> <Wd,> DD.MM.YYYY [bis <Wd,> DD.MM.YYYY] [time/notes]"
+  // - sometimes wrapped so a continuation line has no title of its own, and
+  // a "jeden <Wochentag>" (every <weekday>) range gets expanded into one row
+  // per occurrence rather than a single unusable date range.
+  function parseScheduleText(text) {
+    const dateRe = /\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/g;
+    const weekdayPrefixRe = new RegExp(`(^|\\s)${WEEKDAY_WORD_RE}[.,]?\\s*$`, 'i');
+    const lines = text.split(/\r\n|\n|\r/).map((l) => l.trim()).filter(Boolean);
+
+    const rows = [];
+    let lastTitle = '';
+    for (const line of lines) {
+      const dates = [...line.matchAll(dateRe)];
+      if (!dates.length) continue;
+
+      const first = dates[0];
+      let title = line.slice(0, first.index).replace(weekdayPrefixRe, '').trim();
+      title = title.replace(/[-–—,]\s*$/, '').trim();
+      if (title) lastTitle = title;
+      else title = lastTitle || '(untitled)';
+
+      const last = dates[dates.length - 1];
+      let trailing = line.slice(last.index + last[0].length).trim();
+      const startISO = `${first[3]}-${pad2(first[2])}-${pad2(first[1])}`;
+
+      if (dates.length > 1) {
+        const endISO = `${last[3]}-${pad2(last[2])}-${pad2(last[1])}`;
+        const weeklyMatch = line.match(new RegExp(`jeden\\s+(${WEEKDAY_WORD_RE}\\w*)`, 'i'));
+        if (weeklyMatch) {
+          const note = trailing.replace(new RegExp(`^.*?jeden\\s+${WEEKDAY_WORD_RE}\\w*`, 'i'), '').trim() || null;
+          for (let cur = startISO; cur <= endISO; cur = addDaysISO(cur, 7)) {
+            rows.push({ rawDate: cur, title, notes: note });
+          }
+          continue;
+        }
+        rows.push({ rawDate: startISO, title, notes: trailing || `bis ${last[0]}` });
+        continue;
+      }
+
+      rows.push({ rawDate: startISO, title, notes: trailing || null });
+    }
+    return rows;
+  }
+
   let pendingImportRows = [];
 
-  el('importFile').addEventListener('change', async () => {
-    const file = el('importFile').files[0];
-    const preview = el('importPreview');
-    if (!file) { preview.innerHTML = ''; return; }
-    const text = await file.text();
-    const rawRows = parseCSV(text);
-    if (!rawRows.length) {
-      preview.innerHTML = '<p class="settings-hint">No rows found. Make sure the file has a header row with date, title, notes columns.</p>';
-      return;
-    }
-
-    pendingImportRows = rawRows.map((r) => {
+  function toPendingRows(rawRows) {
+    const thisYear = new Date().getFullYear();
+    return rawRows.map((r) => {
       const iso = parseFlexibleDate(r.rawDate);
       let error = null;
       if (!iso) error = `Unrecognized date: "${r.rawDate}"`;
-      else if (!r.title) error = 'Missing title';
-      return { ...r, iso, error };
+      else if (Number(iso.slice(0, 4)) < thisYear - 2 || Number(iso.slice(0, 4)) > thisYear + 10) {
+        error = `Implausible year - likely an OCR misread: "${r.rawDate}"`;
+      } else if (!r.title) error = 'Missing title';
+      return { rawDate: r.rawDate, title: r.title || '', notes: r.notes || '', iso, error };
     });
+  }
 
+  el('importFile').addEventListener('change', async () => {
+    const file = el('importFile').files[0];
+    if (!file) return;
+    const text = await file.text();
+    const rawRows = parseCSV(text);
+    if (!rawRows.length) {
+      el('importPreview').innerHTML = '<p class="settings-hint">No rows found. Make sure the file has a header row with date, title, notes columns.</p>';
+      return;
+    }
+    pendingImportRows = toPendingRows(rawRows);
+    renderImportPreview();
+  });
+
+  el('ocrExtractBtn').addEventListener('click', async () => {
+    const file = el('importPdfFile').files[0];
+    const status = el('ocrStatus');
+    if (!file) { status.textContent = 'Choose a PDF file first.'; return; }
+    const page = Number(el('importPdfPage').value) || 1;
+
+    status.textContent = 'Rendering + running OCR… this can take a little while.';
+    el('ocrExtractBtn').disabled = true;
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('page', String(page));
+      const res = await fetch('/api/appointments/ocr-pdf', { method: 'POST', body: formData });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || `OCR failed (${res.status})`);
+
+      status.textContent = `Extracted text from page ${result.page}.`;
+      el('ocrRawText').value = result.text;
+      el('ocrRawDetails').classList.remove('hidden');
+      pendingImportRows = toPendingRows(parseScheduleText(result.text));
+      renderImportPreview();
+    } catch (err) {
+      status.textContent = `Failed: ${err.message}`;
+    } finally {
+      el('ocrExtractBtn').disabled = false;
+    }
+  });
+
+  el('ocrReparseBtn').addEventListener('click', () => {
+    pendingImportRows = toPendingRows(parseScheduleText(el('ocrRawText').value));
     renderImportPreview();
   });
 
   function renderImportPreview() {
     const preview = el('importPreview');
+    if (!pendingImportRows.length) { preview.innerHTML = ''; return; }
+
     const validCount = pendingImportRows.filter((r) => !r.error).length;
-    const rowsHtml = pendingImportRows.map((r) => `
-      <tr class="${r.error ? 'row-error' : ''}">
-        <td>${r.rawDate}${r.error ? `<div class="row-error-msg">${r.error}</div>` : ''}</td>
-        <td>${r.title}</td>
-        <td>${r.notes}</td>
+    const rowsHtml = pendingImportRows.map((r, i) => `
+      <tr class="${r.error ? 'row-error' : ''}" data-row="${i}">
+        <td><input type="text" class="pi-date" value="${escapeAttr(r.rawDate)}" size="12">${r.error ? `<div class="row-error-msg">${escapeHtml(r.error)}</div>` : ''}</td>
+        <td><input type="text" class="pi-title" value="${escapeAttr(r.title)}"></td>
+        <td><input type="text" class="pi-notes" value="${escapeAttr(r.notes)}"></td>
+        <td><button type="button" class="icon-btn-sm pi-remove" title="Remove row">×</button></td>
       </tr>
     `).join('');
     preview.innerHTML = `
       <table class="import-preview-table">
-        <thead><tr><th>Date</th><th>Title</th><th>Notes</th></tr></thead>
+        <thead><tr><th>Date</th><th>Title</th><th>Notes</th><th></th></tr></thead>
         <tbody>${rowsHtml}</tbody>
       </table>
       <button id="confirmImportBtn" class="btn small primary">Import ${validCount} valid row${validCount === 1 ? '' : 's'}</button>
+      <button id="clearImportBtn" class="btn small">Clear preview</button>
       <span id="importResultMsg" class="settings-hint"></span>
     `;
+
+    preview.querySelectorAll('tr[data-row]').forEach((tr) => {
+      const i = Number(tr.dataset.row);
+      const revalidate = () => {
+        const r = pendingImportRows[i];
+        r.rawDate = tr.querySelector('.pi-date').value.trim();
+        r.title = tr.querySelector('.pi-title').value.trim();
+        r.notes = tr.querySelector('.pi-notes').value.trim();
+        r.iso = parseFlexibleDate(r.rawDate);
+        r.error = !r.iso ? `Unrecognized date: "${r.rawDate}"` : (!r.title ? 'Missing title' : null);
+        renderImportPreview();
+      };
+      tr.querySelector('.pi-date').addEventListener('change', revalidate);
+      tr.querySelector('.pi-title').addEventListener('change', revalidate);
+      tr.querySelector('.pi-notes').addEventListener('change', revalidate);
+      tr.querySelector('.pi-remove').addEventListener('click', () => {
+        pendingImportRows.splice(i, 1);
+        renderImportPreview();
+      });
+    });
+
     el('confirmImportBtn').addEventListener('click', confirmImport);
+    el('clearImportBtn').addEventListener('click', () => { pendingImportRows = []; renderImportPreview(); });
   }
+
+  function escapeAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;'); }
+  function escapeHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
 
   async function confirmImport() {
     const kidId = el('importKidId').value;
@@ -540,10 +660,19 @@
     if (!rows.length) return;
     try {
       const result = await apiPost('/api/appointments/import', { rows });
-      el('importResultMsg').textContent = `Imported ${result.importedCount} of ${rows.length}.`;
       pendingImportRows = [];
+      renderImportPreview();
       el('importFile').value = '';
+      el('importPdfFile').value = '';
+      el('ocrRawDetails').classList.add('hidden');
       await reload();
+      // reload() re-renders other sections but leaves #importPreview alone
+      // (already cleared above), so surface the result as a one-off toast.
+      const msg = document.createElement('p');
+      msg.className = 'settings-hint';
+      msg.textContent = `Imported ${result.importedCount} of ${rows.length}.`;
+      el('importPreview').after(msg);
+      setTimeout(() => msg.remove(), 6000);
     } catch (err) {
       el('importResultMsg').textContent = `Failed: ${err.message}`;
     }
