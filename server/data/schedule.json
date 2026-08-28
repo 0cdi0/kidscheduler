@@ -1,0 +1,3637 @@
+{
+  "meta": {
+    "schoolYear": "2026/27",
+    "source": "Jahresplanung_202627_Betreuungskalender.xlsx",
+    "start": "2026-08-31",
+    "end": "2027-08-31"
+  },
+  "kids": [
+    {
+      "id": "philipp",
+      "name": "Philipp",
+      "group": "dad",
+      "color": "#6B4C9A"
+    },
+    {
+      "id": "johannes",
+      "name": "Johannes",
+      "group": "dad",
+      "color": "#B9A3D9"
+    },
+    {
+      "id": "aleks",
+      "name": "Aleks",
+      "group": "mom",
+      "color": "#2E6F9E"
+    },
+    {
+      "id": "luis",
+      "name": "Luis",
+      "group": "mom",
+      "color": "#8FC6E8"
+    }
+  ],
+  "groups": [
+    {
+      "id": "dad",
+      "label": "Philipp & Johannes"
+    },
+    {
+      "id": "mom",
+      "label": "Aleks & Luis"
+    }
+  ],
+  "days": {
+    "2026-08-31": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-01": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-02": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-03": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "johannes": "with-us",
+        "philipp": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "Schulstart"
+    },
+    "2026-09-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-10": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-12": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "Steffi + Lisa Probe"
+    },
+    "2026-09-13": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-14": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "Steffi Arbeit"
+    },
+    "2026-09-15": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-16": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-17": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "Steffi Taufe 11:15"
+    },
+    "2026-09-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-24": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-26": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-28": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-29": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-09-30": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-01": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "Alte Sherlock 20:00"
+    },
+    "2026-10-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-10": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [
+        {
+          "name": "Aleks",
+          "note": "Kind der Mutter"
+        }
+      ],
+      "notes": null
+    },
+    "2026-10-11": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-12": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-13": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-14": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-15": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-26": {
+      "kids": {},
+      "holiday": "Nationalfeiertag",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Herbstferien",
+      "birthdays": [
+        {
+          "name": "Johannes",
+          "note": "Kind des Vaters  ·  Geb.feier am 30.10. mit Fragezeichen"
+        }
+      ],
+      "notes": null
+    },
+    "2026-10-28": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Herbstferien",
+      "birthdays": [],
+      "notes": "Johannes"
+    },
+    "2026-10-29": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Herbstferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-10-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Herbstferien",
+      "birthdays": [],
+      "notes": "Johannes Geb.feier?"
+    },
+    "2026-10-31": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Herbstferien",
+      "birthdays": [],
+      "notes": "Halloween"
+    },
+    "2026-11-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Allerheiligen",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Allerseelen (schulfrei)",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-07": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-08": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-09": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-10": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-11": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-12": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-13": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Leopoldi (Wien/NÖ schulfrei)",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-21": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-22": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-26": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-27": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "17:00 Ice first"
+    },
+    "2026-11-28": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-11-29": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "1. Advent"
+    },
+    "2026-11-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-05": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-06": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "2. Advent · Nikolaus"
+    },
+    "2026-12-07": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-08": {
+      "kids": {},
+      "holiday": "Mariä Empfängnis",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-09": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-10": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-13": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "3. Advent"
+    },
+    "2026-12-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-19": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-20": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "4. Advent"
+    },
+    "2026-12-21": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [
+        {
+          "name": "Sabine",
+          "note": "im Entwurf mit Fragezeichen"
+        }
+      ],
+      "notes": "Sabine Geburtstag?"
+    },
+    "2026-12-22": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-24": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": "Weihnachten"
+    },
+    "2026-12-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Christtag",
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-26": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Stefanitag",
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-27": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-28": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-29": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2026-12-31": {
+      "kids": {
+        "philipp": "uncertain",
+        "johannes": "uncertain"
+      },
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": "Silvester"
+    },
+    "2027-01-01": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Neujahr",
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-02": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-03": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-04": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-05": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-06": {
+      "kids": {},
+      "holiday": "Heilige Drei Könige",
+      "schoolBreak": "Weihnachtsferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-07": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-10": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-13": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-16": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-17": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-18": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-19": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-20": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-21": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-24": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [
+        {
+          "name": "Saša",
+          "note": null
+        }
+      ],
+      "notes": "Saša Geburtstag"
+    },
+    "2027-01-26": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-27": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-28": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-29": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-30": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-01-31": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-01": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-02": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-03": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-04": {
+      "kids": {
+        "aleks": "uncertain",
+        "luis": "uncertain",
+        "philipp": "uncertain",
+        "johannes": "uncertain"
+      },
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [
+        {
+          "name": "Philipp",
+          "note": "Kind des Vaters"
+        }
+      ],
+      "notes": null
+    },
+    "2027-02-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Semesterferien (Wien/NÖ)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-10": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-13": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-14": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-15": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-16": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-17": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-18": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-24": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-26": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-02-28": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-01": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-02": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [
+        {
+          "name": "Luis",
+          "note": "Kind der Mutter"
+        }
+      ],
+      "notes": null
+    },
+    "2027-03-03": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-04": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-10": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-13": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-14": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-15": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-16": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-17": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-18": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-24": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-26": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-28": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": "Ostersonntag"
+    },
+    "2027-03-29": {
+      "kids": {},
+      "holiday": "Ostermontag",
+      "schoolBreak": "Osterferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-30": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-03-31": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-01": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-10": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-11": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-12": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-13": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-14": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "30 Sec. to years"
+    },
+    "2027-04-15": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-23": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-26": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-28": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-29": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-04-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Staatsfeiertag",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Christi Himmelfahrt",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-08": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-09": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-10": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-11": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-12": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-13": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [
+        {
+          "name": "Henry",
+          "note": null
+        }
+      ],
+      "notes": null
+    },
+    "2027-05-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Pfingstferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Pfingstferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": "Pfingstmontag",
+      "schoolBreak": "Pfingstferien",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-22": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-26": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-27": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Fronleichnam",
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-28": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-29": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-05-31": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-05": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-06": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-07": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-08": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-09": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-10": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-13": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-19": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-20": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-21": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-22": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-24": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-25": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-26": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-27": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-28": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-29": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-06-30": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": null,
+      "birthdays": [],
+      "notes": "letzter Schultag"
+    },
+    "2027-07-03": {
+      "kids": {
+        "aleks": "uncertain",
+        "luis": "uncertain",
+        "philipp": "uncertain",
+        "johannes": "uncertain"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [
+        {
+          "name": "Chris",
+          "note": "mit Fragezeichen beim Betreuungsvermerk"
+        }
+      ],
+      "notes": null
+    },
+    "2027-07-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-09": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-10": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-11": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-12": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-13": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-14": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-15": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-19": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-20": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-21": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-22": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-26": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-27": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-28": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-29": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-30": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-07-31": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-01": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-02": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-03": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-04": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-05": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-06": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-07": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [
+        {
+          "name": "Steffi",
+          "note": "Geb.feier am 08.08."
+        }
+      ],
+      "notes": null
+    },
+    "2027-08-08": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": "Steffi Geb.feier"
+    },
+    "2027-08-09": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-10": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-11": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-12": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-13": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-14": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-15": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": "Mariä Himmelfahrt",
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-16": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-17": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-18": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-19": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-20": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-21": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-22": {
+      "kids": {
+        "aleks": "with-us",
+        "luis": "with-us",
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-23": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-24": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-25": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-26": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-27": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-28": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-29": {
+      "kids": {
+        "philipp": "with-us",
+        "johannes": "with-us"
+      },
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-30": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    },
+    "2027-08-31": {
+      "kids": {},
+      "holiday": null,
+      "schoolBreak": "Sommerferien (Wien/NÖ/Bgld)",
+      "birthdays": [],
+      "notes": null
+    }
+  }
+}
