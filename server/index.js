@@ -96,8 +96,12 @@ app.get('/api/schedule', (req, res) => {
 
 // ---------------- Kids ----------------
 
+function isValidSchoolClass(s) {
+  return s === null || s === undefined || (typeof s === 'string' && s.trim().length <= 20);
+}
+
 app.post('/api/kids', (req, res) => {
-  const { name, group, color, birthday } = req.body || {};
+  const { name, group, color, birthday, schoolClass } = req.body || {};
   if (typeof name !== 'string' || !name.trim()) {
     return res.status(400).json({ error: 'name is required' });
   }
@@ -111,6 +115,9 @@ app.post('/api/kids', (req, res) => {
   if (!isValidBirthday(birthday)) {
     return res.status(400).json({ error: 'birthday must be MM-DD' });
   }
+  if (!isValidSchoolClass(schoolClass)) {
+    return res.status(400).json({ error: 'schoolClass must be a short string' });
+  }
 
   const id = uniqueId(slugify(name), new Set(schedule.kids.map((k) => k.id)));
   const kid = {
@@ -119,6 +126,7 @@ app.post('/api/kids', (req, res) => {
     group: group || null,
     color: color || '#8E8E93',
     birthday: birthday || null,
+    schoolClass: schoolClass ? schoolClass.trim() : null,
     active: true,
   };
   schedule.kids.push(kid);
@@ -131,7 +139,7 @@ app.put('/api/kids/:id', (req, res) => {
   const kid = schedule.kids.find((k) => k.id === req.params.id);
   if (!kid) return res.status(404).json({ error: 'unknown kid' });
 
-  const { name, color, birthday, group, active } = req.body || {};
+  const { name, color, birthday, group, active, schoolClass } = req.body || {};
   if (name !== undefined) {
     if (typeof name !== 'string' || !name.trim()) return res.status(400).json({ error: 'name must be a non-empty string' });
     kid.name = name.trim();
@@ -153,6 +161,10 @@ app.put('/api/kids/:id', (req, res) => {
   if (active !== undefined) {
     if (typeof active !== 'boolean') return res.status(400).json({ error: 'active must be boolean' });
     kid.active = active;
+  }
+  if (schoolClass !== undefined) {
+    if (!isValidSchoolClass(schoolClass)) return res.status(400).json({ error: 'schoolClass must be a short string' });
+    kid.schoolClass = schoolClass ? schoolClass.trim() : null;
   }
 
   writeSchedule(schedule);

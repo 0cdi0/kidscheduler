@@ -59,6 +59,8 @@ real app, still pointed at the same Tailscale address.
 
 - **Kids** — add a kid (e.g. when your 1-year-old is ready to be tracked),
   edit name/group/color/birthday, or deactivate one without losing history.
+  "Class" (e.g. `1A`, `MSK`) is optional and only used by appointment
+  import (below) to tell that kid's events apart from other classes'.
 - **Groups** — the two household "sides"; each has an "other parent" label
   used when a kid's day is left blank.
 - **Family birthdays** — recurring annual birthdays for people who aren't
@@ -85,6 +87,14 @@ real app, still pointed at the same Tailscale address.
     import** below). OCR on a real school flyer is never perfect, so
     always check the preview before importing; the raw extracted text is
     also shown so you can fix it and re-parse without re-uploading.
+
+  A class newsletter usually lists events for the whole school, not just
+  one kid's class — so if a row's title mentions a specific class code
+  (`3A`, `4B`, `MSK`, …) that doesn't match the target kid's Class setting,
+  it's unchecked by default in the preview (with a note explaining why) so
+  it doesn't get imported by mistake. "alle Klassen" ("all classes")
+  overrides that and stays checked. Set each kid's Class in the Kids
+  section above for this to kick in.
 
 ## Optional: PDF import (OCR)
 

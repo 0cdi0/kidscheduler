@@ -88,6 +88,15 @@
       });
       bdayTd.appendChild(bdayInput);
 
+      const classTd = document.createElement('td');
+      const classInput = document.createElement('input');
+      classInput.type = 'text';
+      classInput.placeholder = 'e.g. 1A';
+      classInput.style.width = '80px';
+      classInput.value = kid.schoolClass || '';
+      classInput.addEventListener('change', () => saveKid(kid.id, { schoolClass: classInput.value.trim() || null }));
+      classTd.appendChild(classInput);
+
       const activeTd = document.createElement('td');
       const activeInput = document.createElement('input');
       activeInput.type = 'checkbox';
@@ -95,7 +104,7 @@
       activeInput.addEventListener('change', () => saveKid(kid.id, { active: activeInput.checked }));
       activeTd.appendChild(activeInput);
 
-      tr.append(nameTd, groupTd, colorTd, bdayTd, activeTd);
+      tr.append(nameTd, groupTd, colorTd, bdayTd, classTd, activeTd);
       tbody.appendChild(tr);
     }
   }
@@ -105,6 +114,7 @@
       const updated = await apiPut(`/api/kids/${id}`, patch);
       Object.assign(schedule.kids.find((k) => k.id === id), updated);
       populateKidSelects();
+      if (pendingImportRows.length) reclassifyPendingRows();
     } catch (e) { alert(e.message); }
   }
 
@@ -117,6 +127,7 @@
         group: f.group.value || null,
         color: f.color.value,
         birthday: f.birthday.value || null,
+        schoolClass: f.schoolClass.value.trim() || null,
       });
       f.reset();
       await reload();
@@ -545,8 +556,31 @@
 
   let pendingImportRows = [];
 
+  // School notices (a class newsletter, a whole-school events list) usually
+  // cover every class, but some rows are specific to one ("Schwimmunterricht
+  // 3A"). Matches Austrian-style class codes (1A-4D) and "MSK"
+  // (Mehrstufenklasse); "alle Klassen" / "alle" overrides any code found,
+  // since that phrasing explicitly means "everyone".
+  const CLASS_TOKEN_RE = /\b([1-4][A-D]|MSK)\b/g;
+  const ALL_CLASSES_RE = /\balle(?:\s+Klassen)?\b/i;
+
+  function classifyRow(title, notes, targetClass) {
+    const haystack = `${title} ${notes || ''}`;
+    if (ALL_CLASSES_RE.test(haystack)) return { classToken: null, classMismatch: false };
+    const tokens = [...new Set([...haystack.matchAll(CLASS_TOKEN_RE)].map((m) => m[1]))];
+    if (!tokens.length) return { classToken: null, classMismatch: false };
+    const classToken = tokens.join('+');
+    const mismatch = !!targetClass && !tokens.includes(targetClass);
+    return { classToken, classMismatch: mismatch };
+  }
+
+  function targetKid() {
+    return schedule.kids.find((k) => k.id === el('importKidId').value);
+  }
+
   function toPendingRows(rawRows) {
     const thisYear = new Date().getFullYear();
+    const kid = targetKid();
     return rawRows.map((r) => {
       const iso = parseFlexibleDate(r.rawDate);
       let error = null;
@@ -554,9 +588,27 @@
       else if (Number(iso.slice(0, 4)) < thisYear - 2 || Number(iso.slice(0, 4)) > thisYear + 10) {
         error = `Implausible year - likely an OCR misread: "${r.rawDate}"`;
       } else if (!r.title) error = 'Missing title';
-      return { rawDate: r.rawDate, title: r.title || '', notes: r.notes || '', iso, error };
+      const { classToken, classMismatch } = classifyRow(r.title || '', r.notes || '', kid && kid.schoolClass);
+      return { rawDate: r.rawDate, title: r.title || '', notes: r.notes || '', iso, error, classToken, classMismatch, selected: !classMismatch };
     });
   }
+
+  // Re-runs class classification in place (keeping edits, error state, and
+  // any row a person has manually re-checked/unchecked) when the target kid
+  // or that kid's class changes after rows are already on screen.
+  function reclassifyPendingRows() {
+    const kid = targetKid();
+    for (const r of pendingImportRows) {
+      const wasDefaultSelection = r.selected === !r.classMismatch;
+      const { classToken, classMismatch } = classifyRow(r.title, r.notes, kid && kid.schoolClass);
+      r.classToken = classToken;
+      r.classMismatch = classMismatch;
+      if (wasDefaultSelection) r.selected = !classMismatch;
+    }
+    renderImportPreview();
+  }
+
+  el('importKidId').addEventListener('change', () => { if (pendingImportRows.length) reclassifyPendingRows(); });
 
   el('importFile').addEventListener('change', async () => {
     const file = el('importFile').files[0];
@@ -608,21 +660,28 @@
     const preview = el('importPreview');
     if (!pendingImportRows.length) { preview.innerHTML = ''; return; }
 
-    const validCount = pendingImportRows.filter((r) => !r.error).length;
+    const kid = targetKid();
+    const importCount = pendingImportRows.filter((r) => !r.error && r.selected).length;
+    const mismatchCount = pendingImportRows.filter((r) => r.classMismatch).length;
     const rowsHtml = pendingImportRows.map((r, i) => `
       <tr class="${r.error ? 'row-error' : ''}" data-row="${i}">
+        <td><input type="checkbox" class="pi-selected" ${r.selected ? 'checked' : ''} ${r.error ? 'disabled' : ''}></td>
         <td><input type="text" class="pi-date" value="${escapeAttr(r.rawDate)}" size="12">${r.error ? `<div class="row-error-msg">${escapeHtml(r.error)}</div>` : ''}</td>
-        <td><input type="text" class="pi-title" value="${escapeAttr(r.title)}"></td>
+        <td>
+          <input type="text" class="pi-title" value="${escapeAttr(r.title)}">
+          ${r.classToken ? `<div class="row-error-msg" style="color:${r.classMismatch ? 'var(--today-ring)' : 'var(--text-muted)'}">class ${escapeHtml(r.classToken)}${r.classMismatch && kid ? ` ≠ ${escapeHtml(kid.schoolClass)}` : ''}</div>` : ''}
+        </td>
         <td><input type="text" class="pi-notes" value="${escapeAttr(r.notes)}"></td>
         <td><button type="button" class="icon-btn-sm pi-remove" title="Remove row">×</button></td>
       </tr>
     `).join('');
     preview.innerHTML = `
+      ${mismatchCount ? `<p class="settings-hint">${mismatchCount} row${mismatchCount === 1 ? '' : 's'} mention a different class than ${kid ? kid.name + "'s (" + (kid.schoolClass || 'no class set') + ')' : 'the target kid\'s'} and are unchecked by default.</p>` : ''}
       <table class="import-preview-table">
-        <thead><tr><th>Date</th><th>Title</th><th>Notes</th><th></th></tr></thead>
+        <thead><tr><th></th><th>Date</th><th>Title</th><th>Notes</th><th></th></tr></thead>
         <tbody>${rowsHtml}</tbody>
       </table>
-      <button id="confirmImportBtn" class="btn small primary">Import ${validCount} valid row${validCount === 1 ? '' : 's'}</button>
+      <button id="confirmImportBtn" class="btn small primary">Import ${importCount} checked row${importCount === 1 ? '' : 's'}</button>
       <button id="clearImportBtn" class="btn small">Clear preview</button>
       <span id="importResultMsg" class="settings-hint"></span>
     `;
@@ -636,11 +695,16 @@
         r.notes = tr.querySelector('.pi-notes').value.trim();
         r.iso = parseFlexibleDate(r.rawDate);
         r.error = !r.iso ? `Unrecognized date: "${r.rawDate}"` : (!r.title ? 'Missing title' : null);
+        const k = targetKid();
+        Object.assign(r, classifyRow(r.title, r.notes, k && k.schoolClass));
         renderImportPreview();
       };
       tr.querySelector('.pi-date').addEventListener('change', revalidate);
       tr.querySelector('.pi-title').addEventListener('change', revalidate);
       tr.querySelector('.pi-notes').addEventListener('change', revalidate);
+      tr.querySelector('.pi-selected').addEventListener('change', (e) => {
+        pendingImportRows[i].selected = e.target.checked;
+      });
       tr.querySelector('.pi-remove').addEventListener('click', () => {
         pendingImportRows.splice(i, 1);
         renderImportPreview();
@@ -656,7 +720,7 @@
 
   async function confirmImport() {
     const kidId = el('importKidId').value;
-    const rows = pendingImportRows.filter((r) => !r.error).map((r) => ({ kidId, date: r.iso, title: r.title, notes: r.notes || null }));
+    const rows = pendingImportRows.filter((r) => !r.error && r.selected).map((r) => ({ kidId, date: r.iso, title: r.title, notes: r.notes || null }));
     if (!rows.length) return;
     try {
       const result = await apiPost('/api/appointments/import', { rows });

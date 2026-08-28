@@ -33,7 +33,8 @@
       "group": "dad",
       "color": "#6B4C9A",
       "birthday": "02-04",
-      "active": true
+      "active": true,
+      "schoolClass": null
     },
     {
       "id": "johannes",
@@ -41,7 +42,8 @@
       "group": "dad",
       "color": "#B9A3D9",
       "birthday": "10-28",
-      "active": true
+      "active": true,
+      "schoolClass": null
     },
     {
       "id": "aleks",
@@ -49,7 +51,8 @@
       "group": "mom",
       "color": "#2E6F9E",
       "birthday": "10-10",
-      "active": true
+      "active": true,
+      "schoolClass": null
     },
     {
       "id": "luis",
@@ -57,7 +60,8 @@
       "group": "mom",
       "color": "#8FC6E8",
       "birthday": "03-02",
-      "active": true
+      "active": true,
+      "schoolClass": null
     }
   ],
   "people": [

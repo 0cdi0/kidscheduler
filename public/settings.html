@@ -24,9 +24,9 @@
 
       <section class="settings-section">
         <h2>Kids</h2>
-        <p class="settings-hint">Each kid gets their own color and can be shown/hidden independently on the calendar. Deactivating a kid hides them from the calendar but keeps their history.</p>
+        <p class="settings-hint">Each kid gets their own color and can be shown/hidden independently on the calendar. Deactivating a kid hides them from the calendar but keeps their history. "Class" (e.g. <code>1A</code>, <code>MSK</code>) is used by appointment import to skip other classes' events &mdash; see Appointments below.</p>
         <table class="settings-table" id="kidsTable">
-          <thead><tr><th>Name</th><th>Group</th><th>Color</th><th>Birthday</th><th>Active</th></tr></thead>
+          <thead><tr><th>Name</th><th>Group</th><th>Color</th><th>Birthday</th><th>Class</th><th>Active</th></tr></thead>
           <tbody></tbody>
         </table>
         <form id="addKidForm" class="inline-form">
@@ -34,6 +34,7 @@
           <select name="group"></select>
           <input type="color" name="color" value="#8E8E93" />
           <input type="text" name="birthday" placeholder="MM-DD (optional)" pattern="\d{2}-\d{2}" />
+          <input type="text" name="schoolClass" placeholder="Class (optional, e.g. 1A)" style="width:110px" />
           <button type="submit" class="btn small">Add kid</button>
         </form>
       </section>
@@ -127,7 +128,7 @@
         </form>
 
         <h3>Bulk import</h3>
-        <p class="settings-hint">Both ways below end up at the same editable preview &mdash; nothing is added until you check it over and click Import.</p>
+        <p class="settings-hint">Both ways below end up at the same editable preview &mdash; nothing is added until you check it over and click Import. If the target kid has a Class set above, any row whose title mentions a <em>different</em> class (e.g. "Schwimmunterricht 3A" when importing for a kid in class 1A) is unchecked by default &mdash; a school notice like a class newsletter usually covers the whole school, not just one class.</p>
         <div class="inline-form">
           <label for="importKidId" style="font-size:12.5px;color:var(--text-muted)">Import target kid:</label>
           <select id="importKidId"></select>
