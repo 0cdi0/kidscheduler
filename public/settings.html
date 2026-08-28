@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1c1c1e" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="icon" href="icons/icon-192.png" />
+<title>Kid Scheduler &middot; Settings</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="topbar-group">
+      <a href="index.html" class="btn icon-btn" aria-label="Back to calendar">&#8249;</a>
+      <h1 id="periodTitle">Settings</h1>
+    </div>
+  </header>
+
+  <div class="body">
+    <main class="settings-main">
+
+      <section class="settings-section">
+        <h2>Kids</h2>
+        <p class="settings-hint">Each kid gets their own color and can be shown/hidden independently on the calendar. Deactivating a kid hides them from the calendar but keeps their history.</p>
+        <table class="settings-table" id="kidsTable">
+          <thead><tr><th>Name</th><th>Group</th><th>Color</th><th>Birthday</th><th>Active</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addKidForm" class="inline-form">
+          <input type="text" name="name" placeholder="Name" required />
+          <select name="group"></select>
+          <input type="color" name="color" value="#8E8E93" />
+          <input type="text" name="birthday" placeholder="MM-DD (optional)" pattern="\d{2}-\d{2}" />
+          <button type="submit" class="btn small">Add kid</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>Groups</h2>
+        <p class="settings-hint">A group is a household side (e.g. "Philipp &amp; Johannes"). The "other parent" label is used when a kid's day is left blank &mdash; it shows as "with &lt;label&gt;" instead of just empty.</p>
+        <table class="settings-table" id="groupsTable">
+          <thead><tr><th>Label</th><th>When empty, kid is with&hellip;</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addGroupForm" class="inline-form">
+          <input type="text" name="label" placeholder="Group label (e.g. Aleks & Luis)" required />
+          <input type="text" name="otherParentLabel" placeholder="Other parent label (e.g. Father)" />
+          <button type="submit" class="btn small">Add group</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>Family birthdays</h2>
+        <p class="settings-hint">Recurring annual birthdays for people who aren't tracked on the custody calendar (parents, grandparents, etc). Shown with a &#127874; on the calendar every year.</p>
+        <table class="settings-table" id="peopleTable">
+          <thead><tr><th>Name</th><th>Birthday</th><th>Note</th><th>Active</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addPersonForm" class="inline-form">
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="text" name="birthday" placeholder="MM-DD" pattern="\d{2}-\d{2}" required />
+          <input type="text" name="note" placeholder="Note (optional)" />
+          <button type="submit" class="btn small">Add birthday</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>School years</h2>
+        <p class="settings-hint">A school year auto-locks (read-only) once you add the next one and today has moved past its end date &mdash; it stays as a historical record. Unlock it here temporarily to fix a mistake.</p>
+        <table class="settings-table" id="yearsTable">
+          <thead><tr><th>Label</th><th>Start</th><th>End</th><th>Lock</th><th>Currently</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addYearForm" class="inline-form">
+          <input type="text" name="label" placeholder="Label (e.g. 2027/28)" required />
+          <input type="date" name="start" required />
+          <input type="date" name="end" required />
+          <button type="submit" class="btn small">Add school year</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>Public holidays (Vienna, Austria)</h2>
+        <p class="settings-hint">Pulls official national/Vienna public holidays from the free <a href="https://date.nager.at" target="_blank" rel="noopener">date.nager.at</a> service. This does <strong>not</strong> cover school break periods (Ferien) &mdash; those aren't public holidays and have to be entered manually below, since there's no reliable free feed for them.</p>
+        <div class="inline-form">
+          <input type="number" id="syncYear" placeholder="Year" style="width:90px" />
+          <button id="syncHolidaysBtn" class="btn small primary">Sync from date.nager.at</button>
+          <span id="syncStatus" class="settings-hint"></span>
+        </div>
+        <table class="settings-table" id="holidaysTable">
+          <thead><tr><th>Date</th><th>Label</th><th>Source</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addHolidayForm" class="inline-form">
+          <input type="date" name="date" required />
+          <input type="text" name="label" placeholder="Label" required />
+          <button type="submit" class="btn small">Add holiday</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>School breaks (Ferien)</h2>
+        <table class="settings-table" id="breaksTable">
+          <thead><tr><th>Label</th><th>Start</th><th>End</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <form id="addBreakForm" class="inline-form">
+          <input type="text" name="label" placeholder="Label (e.g. Herbstferien)" required />
+          <input type="date" name="start" required />
+          <input type="date" name="end" required />
+          <button type="submit" class="btn small">Add school break</button>
+        </form>
+      </section>
+
+      <section class="settings-section">
+        <h2>Appointments</h2>
+        <p class="settings-hint">One-off appointments per kid (doctor, school events, etc) &mdash; shown on the calendar and in each day's editor.</p>
+        <form id="addApptForm" class="inline-form">
+          <select name="kidId"></select>
+          <input type="date" name="date" required />
+          <input type="text" name="title" placeholder="Title" required />
+          <input type="text" name="notes" placeholder="Notes (optional)" />
+          <button type="submit" class="btn small">Add appointment</button>
+        </form>
+
+        <h3>Bulk import from CSV / Excel</h3>
+        <p class="settings-hint">
+          Export the school's list to CSV (from Excel: File &rarr; Save As &rarr; CSV) with columns
+          <code>date, title, notes</code> (dates as <code>YYYY-MM-DD</code> or <code>DD.MM.YYYY</code>).
+          Pick which kid the file belongs to, then preview before importing.
+        </p>
+        <div class="inline-form">
+          <select id="importKidId"></select>
+          <input type="file" id="importFile" accept=".csv,text/csv" />
+        </div>
+        <div id="importPreview"></div>
+
+        <h3>All appointments</h3>
+        <table class="settings-table" id="appointmentsTable">
+          <thead><tr><th>Kid</th><th>Date</th><th>Title</th><th>Notes</th><th>Source</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+</div>
+<script src="settings.js"></script>
+</body>
+</html>

@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1c1c1e" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Kid Scheduler" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<link rel="icon" href="icons/icon-192.png" />
 <title>Kid Scheduler</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
@@ -11,28 +17,45 @@
 
   <header class="topbar">
     <div class="topbar-group">
+      <button id="sidebarToggle" class="btn icon-btn sidebar-toggle" aria-label="Show kids">&#9776;</button>
       <button id="todayBtn" class="btn">Today</button>
       <div class="nav-arrows">
-        <button id="prevBtn" class="btn icon-btn" aria-label="Previous month">&#8249;</button>
-        <button id="nextBtn" class="btn icon-btn" aria-label="Next month">&#8250;</button>
+        <button id="prevBtn" class="btn icon-btn" aria-label="Previous">&#8249;</button>
+        <button id="nextBtn" class="btn icon-btn" aria-label="Next">&#8250;</button>
       </div>
-      <h1 id="monthTitle">Month Year</h1>
+      <h1 id="periodTitle">Month Year</h1>
+    </div>
+    <div class="topbar-group">
+      <div class="view-switch" id="viewSwitch">
+        <button class="active" data-view="month">Month</button>
+        <button data-view="week">Week</button>
+        <button data-view="year">Year</button>
+      </div>
+      <div class="menu" id="yearMenu">
+        <button id="yearMenuBtn" class="btn" title="Switch school year">School year &#9662;</button>
+        <div class="menu-dropdown hidden" id="yearDropdown"></div>
+      </div>
     </div>
     <div class="topbar-group">
       <button id="invertBtn" class="btn" title="Swap selected &lt;-&gt; unselected kids">Flip Selection</button>
       <div class="menu" id="exportMenu">
         <button id="exportBtn" class="btn primary">Export &#9662;</button>
         <div class="menu-dropdown hidden" id="exportDropdown">
-          <button data-export="ics">Whole year&nbsp;&middot;&nbsp;iCalendar (.ics)</button>
-          <button data-export="pdf">This month&nbsp;&middot;&nbsp;PDF</button>
-          <button data-export="png">This month&nbsp;&middot;&nbsp;PNG image</button>
+          <button data-export="ics">This school year&nbsp;&middot;&nbsp;iCalendar (.ics)</button>
+          <button data-export="pdf">This view&nbsp;&middot;&nbsp;PDF</button>
+          <button data-export="png">This view&nbsp;&middot;&nbsp;PNG image</button>
         </div>
       </div>
+      <a href="settings.html" class="btn icon-btn" title="Settings" aria-label="Settings">&#9881;</a>
     </div>
   </header>
+  <div id="lockedBanner" class="locked-banner hidden">
+    &#128274; This school year is locked (read-only) &mdash; it's kept as a historical record and can't be edited here. Unlock it from Settings if you need to fix something.
+  </div>
 
   <div class="body">
-    <aside class="sidebar">
+    <div id="sidebarBackdrop" class="sidebar-backdrop hidden"></div>
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-section">
         <div class="sidebar-heading">Kids</div>
         <div id="kidGroups"></div>
@@ -52,8 +75,16 @@
 
     <main class="calendar-wrap">
       <div id="calendar" class="calendar">
-        <div class="weekday-row" id="weekdayRow"></div>
-        <div class="calendar-grid" id="calendarGrid"></div>
+        <div id="monthView" class="view-panel">
+          <div class="weekday-row" id="weekdayRow"></div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+        <div id="weekView" class="view-panel hidden">
+          <div class="week-grid" id="weekGrid"></div>
+        </div>
+        <div id="yearView" class="view-panel hidden">
+          <div class="year-grid" id="yearGrid"></div>
+        </div>
       </div>
     </main>
   </div>
@@ -67,9 +98,11 @@
       <button id="modalClose" class="btn icon-btn" aria-label="Close">&times;</button>
     </div>
     <div class="modal-body">
+      <div id="modalLockedNotice" class="locked-notice hidden">&#128274; This day is in a locked school year and can't be edited.</div>
       <div id="modalKidRows" class="modal-kid-rows"></div>
       <label class="modal-notes-label" for="modalNotes">Notes</label>
       <textarea id="modalNotes" rows="2" placeholder="Optional note for this day"></textarea>
+      <div id="modalAppointments" class="modal-appointments"></div>
     </div>
     <div class="modal-footer">
       <button id="modalCancel" class="btn">Cancel</button>
