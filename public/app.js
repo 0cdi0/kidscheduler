@@ -5,9 +5,16 @@
   const WEEKDAYS_MIN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   const STATUS_ORDER = ['away', 'with-us'];
   const STORAGE_KEY = 'kidscheduler.selectedKids';
+  const OTHER_PARENT_STORAGE_KEY = 'kidscheduler.showOtherParent';
+  const THEME_STORAGE_KEY = 'kidscheduler.theme';
 
   let schedule = null;
   let selectedKids = new Set();
+  // false = show each selected kid's with-us days (the normal view).
+  // true  = "Flip Selection": show that SAME set of kids' with-the-other-
+  // parent days instead - e.g. with Philipp & Johannes selected, flipping
+  // shows the days they're with their mother, not a different pair of kids.
+  let showOtherParent = false;
   let view = 'month'; // 'month' | 'week' | 'year'
   let focusDate = new Date(); // anchors month/week/year navigation
   let currentSchoolYearId = null;
@@ -22,6 +29,30 @@
     const res = await fetch('/api/schedule');
     if (!res.ok) throw new Error('Failed to load schedule');
     schedule = await res.json();
+    applyAppearanceSettings();
+  }
+
+  // Mixes accentHex into baseHex at the given ratio (0-1), in plain hex.
+  // Deliberately NOT using CSS color-mix() here: html2canvas (which drives
+  // PDF/PNG export) can't parse that function and throws on any exported
+  // view containing a holiday/break day.
+  function mixHex(accentHex, baseHex, ratio) {
+    const a = accentHex.match(/[0-9a-f]{2}/gi).map((h) => parseInt(h, 16));
+    const b = baseHex.match(/[0-9a-f]{2}/gi).map((h) => parseInt(h, 16));
+    return '#' + a.map((v, i) => Math.round(v * ratio + b[i] * (1 - ratio)).toString(16).padStart(2, '0')).join('');
+  }
+
+  function applyAppearanceSettings() {
+    const appearance = (schedule.settings && schedule.settings.appearance) || {};
+    const root = document.documentElement;
+    const dark = currentEffectiveTheme() === 'dark';
+    const holidayAccent = appearance.holidayColor || (dark ? '#4caf50' : '#2e7d32');
+    const breakAccent = appearance.breakColor || (dark ? '#9ccc65' : '#7cb342');
+    const panel = dark ? '#242426' : '#ffffff';
+    root.style.setProperty('--holiday-accent', holidayAccent);
+    root.style.setProperty('--holiday-bg', mixHex(holidayAccent, panel, 0.18));
+    root.style.setProperty('--break-accent', breakAccent);
+    root.style.setProperty('--break-bg', mixHex(breakAccent, panel, 0.16));
   }
 
   async function apiPut(url, body) {
@@ -103,9 +134,12 @@
     return matches;
   }
 
+  // Returns the full holiday entry (not just its label) so callers can tell
+  // a real day-off holiday apart from an "observance" like Mother's/Father's
+  // Day - those are worth marking on the calendar but don't mean school's
+  // out, so they shouldn't tint the day the way a real holiday does.
   function holidayForISO(iso) {
-    const h = schedule.holidays.find((x) => x.date === iso);
-    return h ? h.label : null;
+    return schedule.holidays.find((x) => x.date === iso) || null;
   }
 
   function schoolBreakForISO(iso) {
@@ -328,12 +362,36 @@
     for (const w of WEEKDAYS) row.appendChild(Object.assign(document.createElement('div'), { textContent: w }));
   }
 
-  function buildKidTag(kid) {
+  function buildKidTag(kid, flipped) {
     const tag = document.createElement('div');
     tag.className = 'kid-tag';
-    tag.style.background = kid.color;
-    tag.textContent = kid.name;
+    if (flipped) {
+      tag.classList.add('kid-tag-flipped');
+      tag.style.borderColor = kid.color;
+      tag.style.color = kid.color;
+      const otherLabel = otherParentLabelFor(kid);
+      tag.textContent = otherLabel ? `${kid.name} \u00b7 ${otherLabel}` : kid.name;
+    } else {
+      tag.style.background = kid.color;
+      tag.textContent = kid.name;
+    }
     return tag;
+  }
+
+  function buildApptTag(appt, kid) {
+    const tag = document.createElement('div');
+    tag.className = 'appt-tag';
+    if (kid) tag.style.borderLeftColor = kid.color;
+    tag.textContent = `${kid ? kid.name + ': ' : ''}${appt.title}`;
+    if (appt.notes) tag.title = appt.notes;
+    return tag;
+  }
+
+  // Days a selected kid is shown on, given the current Flip Selection state:
+  // normally the days they're with us; flipped, the days they're not.
+  function kidShownOnDay(kid, dayData) {
+    const present = !!(dayData && dayData.kids && dayData.kids[kid.id]);
+    return showOtherParent ? !present : present;
   }
 
   function renderMonthView() {
@@ -347,18 +405,20 @@
     for (const cell of cells) {
       const dayData = schedule.days[cell.iso];
       const holiday = holidayForISO(cell.iso);
+      const isRealHoliday = holiday && holiday.source !== 'observance';
+      const observance = holiday && holiday.source === 'observance' ? holiday : null;
       const brk = schoolBreakForISO(cell.iso);
       const birthdays = birthdayPeopleForISO(cell.iso);
-      const appts = appointmentsForISO(cell.iso);
+      const appts = appointmentsForISO(cell.iso).filter((a) => selectedKids.has(a.kidId));
 
       const cellEl = document.createElement('div');
       cellEl.className = 'day-cell';
       if (!cell.inMonth) cellEl.classList.add('other-month');
       if (cell.iso === today) cellEl.classList.add('today');
-      if (holiday) cellEl.classList.add('holiday');
+      if (isRealHoliday) cellEl.classList.add('holiday');
       if (brk) cellEl.classList.add('break');
 
-      const titleBits = [holiday, brk, dayData && dayData.notes].filter(Boolean);
+      const titleBits = [holiday && holiday.label, brk, dayData && dayData.notes].filter(Boolean);
       if (titleBits.length) cellEl.title = titleBits.join(' \u00b7 ');
 
       const dayNumber = document.createElement('div');
@@ -366,11 +426,16 @@
       dayNumber.textContent = cell.day;
       cellEl.appendChild(dayNumber);
 
-      if (birthdays.length) {
+      if (isRealHoliday) cellEl.appendChild(Object.assign(document.createElement('div'), { className: 'day-label holiday-label', textContent: holiday.label }));
+      else if (brk) cellEl.appendChild(Object.assign(document.createElement('div'), { className: 'day-label break-label', textContent: brk }));
+
+      if (birthdays.length || observance) {
+        const bits = [];
+        if (birthdays.length) bits.push('\u{1F382} ' + birthdays.join(', '));
+        if (observance) bits.push(observance.label);
         const cake = document.createElement('div');
         cake.className = 'day-cake';
-        cake.textContent = '\u{1F382}';
-        cake.title = birthdays.join(', ');
+        cake.textContent = bits.join(' \u00b7 ');
         cellEl.appendChild(cake);
       }
 
@@ -378,12 +443,13 @@
       tags.className = 'day-kid-tags';
       for (const kid of activeKids()) {
         if (!selectedKids.has(kid.id)) continue;
-        if (!(dayData && dayData.kids && dayData.kids[kid.id])) continue;
-        tags.appendChild(buildKidTag(kid));
+        if (!kidShownOnDay(kid, dayData)) continue;
+        tags.appendChild(buildKidTag(kid, showOtherParent));
       }
+      for (const appt of appts) tags.appendChild(buildApptTag(appt, kidById(appt.kidId)));
       cellEl.appendChild(tags);
 
-      if ((dayData && dayData.notes) || appts.length) {
+      if (dayData && dayData.notes) {
         const dot = document.createElement('div');
         dot.className = 'day-note-dot';
         cellEl.appendChild(dot);
@@ -410,11 +476,13 @@
       const holiday = holidayForISO(iso);
       const brk = schoolBreakForISO(iso);
       const birthdays = birthdayPeopleForISO(iso);
-      const appts = appointmentsForISO(iso);
+      const observance = holiday && holiday.source === 'observance' ? holiday : null;
+      const isRealHoliday = holiday && !observance;
+      const appts = appointmentsForISO(iso).filter((a) => selectedKids.has(a.kidId));
 
       const col = document.createElement('div');
       col.className = 'week-day';
-      if (holiday) col.classList.add('holiday');
+      if (isRealHoliday) col.classList.add('holiday');
       if (brk) col.classList.add('break');
       if (iso === today) col.classList.add('today');
 
@@ -423,15 +491,19 @@
       head.innerHTML = `<span>${WEEKDAYS[i]}</span><span class="week-day-num">${d.getDate()}</span>`;
       col.appendChild(head);
 
-      if (holiday) col.appendChild(Object.assign(document.createElement('div'), { className: 'week-note', textContent: '\u{1F1E6}\u{1F1F9} ' + holiday }));
+      if (isRealHoliday) col.appendChild(Object.assign(document.createElement('div'), { className: 'week-note', textContent: '\u{1F1E6}\u{1F1F9} ' + holiday.label }));
       if (brk) col.appendChild(Object.assign(document.createElement('div'), { className: 'week-note', textContent: brk }));
       if (birthdays.length) col.appendChild(Object.assign(document.createElement('div'), { className: 'week-cake', textContent: '\u{1F382} ' + birthdays.join(', ') }));
+      if (observance) col.appendChild(Object.assign(document.createElement('div'), { className: 'week-cake', textContent: observance.label }));
 
       for (const kid of activeKids()) {
         if (!selectedKids.has(kid.id)) continue;
-        const status = dayData && dayData.kids && dayData.kids[kid.id];
+        const present = !!(dayData && dayData.kids && dayData.kids[kid.id]);
+        // Flip Selection re-emphasizes the with-other-parent state instead
+        // of hiding the with-us one - both are still shown either way.
+        const primary = showOtherParent ? !present : present;
         const row = document.createElement('div');
-        if (status) {
+        if (primary) {
           row.className = 'week-kid-row';
           row.style.background = kid.color;
           row.textContent = kid.name;
@@ -447,6 +519,7 @@
         const kid = kidById(appt.kidId);
         const line = document.createElement('div');
         line.className = 'week-appt';
+        if (kid) line.style.borderLeftColor = kid.color;
         line.textContent = `${kid ? kid.name + ': ' : ''}${appt.title}`;
         col.appendChild(line);
       }
@@ -495,12 +568,13 @@
       for (const cell of buildMonthGrid(y, m)) {
         const dayData = schedule.days[cell.iso];
         const holiday = holidayForISO(cell.iso);
+        const isRealHoliday = holiday && holiday.source !== 'observance';
         const brk = schoolBreakForISO(cell.iso);
         const dayEl = document.createElement('div');
         dayEl.className = 'mini-day';
         if (!cell.inMonth) dayEl.classList.add('other-month');
         if (cell.iso === today) dayEl.classList.add('today');
-        if (holiday) dayEl.classList.add('holiday');
+        if (isRealHoliday) dayEl.classList.add('holiday');
         if (brk) dayEl.classList.add('break');
         dayEl.textContent = cell.day;
 
@@ -509,10 +583,11 @@
           dots.className = 'mini-dots';
           for (const kid of activeKids()) {
             if (!selectedKids.has(kid.id)) continue;
-            if (dayData && dayData.kids && dayData.kids[kid.id]) {
+            if (kidShownOnDay(kid, dayData)) {
               const dot = document.createElement('span');
               dot.className = 'mini-dot';
-              dot.style.background = kid.color;
+              if (showOtherParent) dot.style.border = `1px solid ${kid.color}`;
+              else dot.style.background = kid.color;
               dots.appendChild(dot);
             }
           }
@@ -721,10 +796,10 @@
 
   function selectAll() { selectedKids = new Set(activeKids().map((k) => k.id)); persistSelection(); renderAll(); }
   function clearAll() { selectedKids = new Set(); persistSelection(); renderAll(); }
-  function invertSelection() {
-    const all = activeKids().map((k) => k.id);
-    selectedKids = new Set(all.filter((id) => !selectedKids.has(id)));
-    persistSelection();
+  function toggleOtherParentView() {
+    showOtherParent = !showOtherParent;
+    try { localStorage.setItem(OTHER_PARENT_STORAGE_KEY, showOtherParent ? '1' : '0'); } catch (e) { /* ignore */ }
+    el('invertBtn').classList.toggle('active', showOtherParent);
     renderAll();
   }
 
@@ -778,20 +853,20 @@
       .sort();
     for (const iso of isoDates) {
       const day = schedule.days[iso];
-      if (!day.kids) continue;
       for (const kid of activeKids()) {
         if (!selectedKids.has(kid.id)) continue;
-        const status = day.kids[kid.id];
-        if (!status) continue;
+        if (!kidShownOnDay(kid, day)) continue;
         const dateCompact = iso.replace(/-/g, '');
         const endCompact = addDays(iso, 1).replace(/-/g, '');
+        const otherLabel = otherParentLabelFor(kid);
+        const summary = showOtherParent && otherLabel ? `${kid.name} (with ${otherLabel})` : kid.name;
         lines.push(
           'BEGIN:VEVENT',
-          `UID:${dateCompact}-${kid.id}@kidscheduler.local`,
+          `UID:${dateCompact}-${kid.id}-${showOtherParent ? 'other' : 'us'}@kidscheduler.local`,
           `DTSTAMP:${stamp}`,
           `DTSTART;VALUE=DATE:${dateCompact}`,
           `DTEND;VALUE=DATE:${endCompact}`,
-          `SUMMARY:${icsEscape(kid.name)}`,
+          `SUMMARY:${icsEscape(summary)}`,
           `CATEGORIES:${icsEscape(kid.name)}`,
           'END:VEVENT'
         );
@@ -832,23 +907,112 @@
     finally { btn.disabled = false; }
   }
 
+  function addCanvasAsPage(pdf, canvas, isFirstPage) {
+    if (!isFirstPage) {
+      const orientation = canvas.width >= canvas.height ? 'landscape' : 'portrait';
+      pdf.addPage('a4', orientation);
+    }
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
+    const w = canvas.width * ratio;
+    const h = canvas.height * ratio;
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageWidth - w) / 2, (pageHeight - h) / 2, w, h);
+  }
+
+  // Year view crammed onto one page is illegible, so instead render every
+  // month of the currently-selected school year at full month-view size (as
+  // if you'd paged through each one) and put each on its own PDF page.
+  async function exportYearPDF() {
+    const savedView = view;
+    const savedFocus = focusDate;
+    const sy = currentSchoolYear();
+    const startMonth = sy ? parseISO(sy.start) : new Date(focusDate.getFullYear(), 0, 1);
+    const monthCount = sy
+      ? (parseISO(sy.end).getFullYear() - startMonth.getFullYear()) * 12 + (parseISO(sy.end).getMonth() - startMonth.getMonth()) + 1
+      : 12;
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: 'landscape', unit: 'pt', format: 'a4' });
+
+    view = 'month';
+    // renderMonthView() only repaints the grid inside #monthView - it
+    // doesn't touch the hidden/visible toggling renderAll() normally does
+    // for the view switcher, so #monthView is still display:none from
+    // being in Year view. html2canvas can't capture a hidden element.
+    el('monthView').classList.remove('hidden');
+    el('weekView').classList.add('hidden');
+    el('yearView').classList.add('hidden');
+    for (let i = 0; i < monthCount; i++) {
+      const y = startMonth.getFullYear() + Math.floor((startMonth.getMonth() + i) / 12);
+      const m = (startMonth.getMonth() + i) % 12;
+      focusDate = new Date(y, m, 1);
+      renderMonthView();
+      await new Promise((r) => requestAnimationFrame(r));
+      const canvas = await html2canvas(el('monthView'), {
+        backgroundColor: getComputedStyle(document.body).getPropertyValue('background-color') || '#ffffff',
+        scale: Math.min(2, window.devicePixelRatio || 1.5),
+      });
+      addCanvasAsPage(pdf, canvas, i === 0);
+    }
+
+    view = savedView;
+    focusDate = savedFocus;
+    renderAll();
+
+    pdf.save(`kidscheduler-${(sy ? sy.label.replace('/', '-') : 'year')}-${slugSelection()}.pdf`);
+  }
+
   async function exportPDF() {
     const btn = el('exportBtn');
     btn.disabled = true;
     try {
-      const canvas = await captureViewCanvas();
-      const { jsPDF } = window.jspdf;
-      const orientation = canvas.width >= canvas.height ? 'landscape' : 'portrait';
-      const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
-      const w = canvas.width * ratio;
-      const h = canvas.height * ratio;
-      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageWidth - w) / 2, (pageHeight - h) / 2, w, h);
-      pdf.save(`kidscheduler-${viewSlug()}-${slugSelection()}.pdf`);
-    } catch (e) { alert('PDF export failed.'); }
+      if (view === 'year') {
+        await exportYearPDF();
+      } else {
+        const canvas = await captureViewCanvas();
+        const { jsPDF } = window.jspdf;
+        const orientation = canvas.width >= canvas.height ? 'landscape' : 'portrait';
+        const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
+        addCanvasAsPage(pdf, canvas, true);
+        pdf.save(`kidscheduler-${viewSlug()}-${slugSelection()}.pdf`);
+      }
+    } catch (e) { alert('PDF export failed: ' + e.message); }
     finally { btn.disabled = false; }
+  }
+
+  // ---------------- Theme ----------------
+
+  function currentEffectiveTheme() {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* ignore */ }
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function updateThemeToggleIcon() {
+    const btn = el('themeToggle');
+    if (!btn) return;
+    const dark = currentEffectiveTheme() === 'dark';
+    btn.textContent = dark ? '☀️' : '\u{1F319}';
+    btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  }
+
+  function initTheme() {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* ignore */ }
+    if (stored === 'light' || stored === 'dark') document.documentElement.setAttribute('data-theme', stored);
+    updateThemeToggleIcon();
+    const btn = el('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = currentEffectiveTheme() === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem(THEME_STORAGE_KEY, next); } catch (e) { /* ignore */ }
+        document.documentElement.setAttribute('data-theme', next);
+        updateThemeToggleIcon();
+        applyAppearanceSettings();
+      });
+    }
   }
 
   // ---------------- Wiring ----------------
@@ -871,7 +1035,7 @@
 
     el('selectAllBtn').addEventListener('click', selectAll);
     el('clearAllBtn').addEventListener('click', clearAll);
-    el('invertBtn').addEventListener('click', invertSelection);
+    el('invertBtn').addEventListener('click', toggleOtherParentView);
 
     el('yearMenuBtn').addEventListener('click', (e) => { e.stopPropagation(); el('yearDropdown').classList.toggle('hidden'); });
     el('exportBtn').addEventListener('click', (e) => { e.stopPropagation(); el('exportDropdown').classList.toggle('hidden'); });
@@ -918,6 +1082,8 @@
     }
 
     selectedKids = loadSelection();
+    try { showOtherParent = localStorage.getItem(OTHER_PARENT_STORAGE_KEY) === '1'; } catch (e) { /* ignore */ }
+    el('invertBtn').classList.toggle('active', showOtherParent);
     focusDate = new Date();
     syncSchoolYearToFocus();
     if (!currentSchoolYearId) {
@@ -927,6 +1093,7 @@
 
     renderWeekdayRow();
     wireEvents();
+    initTheme();
     renderAll();
   }
 

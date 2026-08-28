@@ -33,27 +33,37 @@ real app, still pointed at the same Tailscale address.
 
 - **Month / Week / Year** view switcher, top center. Week view is the most
   detailed (shows who's with which parent and any appointments per day);
-  Year view is a 12-month overview you can click into.
+  Year view is a scrollable one-page-per-month overview you can click into.
+  Public holidays, school breaks, and birthdays now show as actual text
+  labels on the month view too, not just a color tint or a bare icon.
 - **School year ▾** (top center) — switch between school years once you've
   added more than one (Settings → School years). The banner up top tells you
   when you're looking at a locked (read-only) year.
+- **🌙/☀️** (top right) — toggle light/dark mode explicitly; it starts from
+  your OS setting but remembers your choice per browser after that.
 - **Sidebar** — tick/untick any kid, or a whole group ("Philipp & Johannes" /
   "Aleks & Luis"), to show or hide them on the calendar. Each kid has its own
   color swatch; click it to pick a different one, per kid. On a phone, the
   ☰ button opens this as a slide-in panel.
-- **Flip Selection** — swaps who's currently shown for who's currently hidden
-  (select your kids, hit Flip, and you're looking at your wife's kids' view).
+- **Flip Selection** — shows the *same* selected kids' days with their
+  *other* parent instead (e.g. Philipp & Johannes selected, hit Flip, and
+  you're looking at the days they're with their mother — the tags switch to
+  an outlined style so it's clear you're looking at the flipped view).
 - **Click any day** — set each kid's status for that day independently
   (With us / With the other parent), add a note, and add per-kid
-  appointments. A kid is always either with you or with the other parent
-  for that group (configurable in Settings → Groups) — there's no
-  in-between "unconfirmed" state to maintain.
+  appointments (shown on the calendar as `Kid: Title`, in that kid's
+  color). A kid is always either with you or with the other parent for
+  that group (configurable in Settings → Groups) — there's no in-between
+  "unconfirmed" state to maintain.
 - **Export** (top right) — always matches whatever's currently on screen:
   the kids you have selected, and the month/week/school-year you're
   currently viewing.
   - *iCalendar (.ics)* — importable into Apple Calendar / Google Calendar /
     Outlook.
-  - *PDF* / *PNG* — a snapshot of the current view.
+  - *PDF* — a snapshot of the current view; from Year view this is a
+    **multi-page PDF, one full-size page per month** instead of one
+    illegibly squished page.
+  - *PNG* — a single-image snapshot of the current view.
 
 ## Settings (⚙ top right)
 
@@ -71,11 +81,19 @@ real app, still pointed at the same Tailscale address.
   and today has moved past its end date — it's kept as a historical record.
   The "Lock" dropdown lets you force it locked or temporarily force it
   unlocked (e.g. to fix a mistake), or leave it on "Auto".
+- **Appearance** — pick your own accent color for the public-holiday and
+  school-break tinting (legend swatch, day background, and text label all
+  follow it) instead of the built-in green shades. "Reset" goes back to the
+  default, and it still adapts sensibly between light and dark mode.
 - **Public holidays (Vienna, Austria)** — "Sync from date.nager.at" pulls
   official national/Vienna public holidays for a given year from the free
-  [date.nager.at](https://date.nager.at) API. This does **not** include
-  school break periods (Ferien) — those aren't public holidays and there's
-  no reliable free feed for them, so add/edit those manually just below.
+  [date.nager.at](https://date.nager.at) API, **plus Mother's Day and
+  Father's Day** (computed locally as the 2nd Sunday of May/June — they're
+  observances, not statutory holidays, so that feed doesn't carry them;
+  they show with a 💐/👔 icon and don't mark the day as school-free). This
+  does **not** include school break periods (Ferien) — those aren't public
+  holidays and there's no reliable free feed for them, so add/edit those
+  manually just below.
 - **Appointments** — one-off appointments per kid, added one at a time or
   bulk-imported two ways, both landing in the same editable preview (edit
   any date/title/note, or remove a row, before anything is actually saved):
@@ -98,13 +116,21 @@ real app, still pointed at the same Tailscale address.
   `1A` → grade 1). "alle Klassen" ("all classes") always stays checked.
   Set each kid's Class in the Kids section above for this to kick in.
 
+  The "All appointments" table further down is fully editable (date, title,
+  notes) — the fastest way to clean up a row that OCR misread before you
+  spot it on the calendar, without deleting and re-adding it.
+
 ## Optional: PDF import (OCR)
 
 The scanned-PDF appointment importer needs two system packages that aren't
 required for anything else in the app:
 
 ```bash
+# Debian/Ubuntu/Raspberry Pi OS
 sudo apt install poppler-utils tesseract-ocr tesseract-ocr-deu
+
+# macOS
+brew install poppler tesseract tesseract-lang
 ```
 
 Without these installed, every other feature works fine — you'll just get a

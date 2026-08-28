@@ -2673,6 +2673,10 @@
       "subdivision": "AT-9",
       "lastSyncedYear": null,
       "lastSyncedAt": null
+    },
+    "appearance": {
+      "holidayColor": null,
+      "breakColor": null
     }
   }
 }

@@ -17,6 +17,9 @@
       <a href="index.html" class="btn icon-btn" aria-label="Back to calendar">&#8249;</a>
       <h1 id="periodTitle">Settings</h1>
     </div>
+    <div class="topbar-group">
+      <button id="themeToggle" class="btn icon-btn" title="Toggle dark mode" aria-label="Toggle dark mode">&#127769;</button>
+    </div>
   </header>
 
   <div class="body">
@@ -84,8 +87,21 @@
       </section>
 
       <section class="settings-section">
+        <h2>Appearance</h2>
+        <p class="settings-hint">Pick the accent color used for public holidays and school breaks on the calendar (the legend swatch, day tinting, and text label all follow it). Leave a swatch on the default to use the built-in color.</p>
+        <div class="inline-form">
+          <label style="font-size:12.5px;color:var(--text-muted)">Public holiday:</label>
+          <input type="color" id="holidayColorInput" />
+          <button id="resetHolidayColorBtn" class="btn small">Reset</button>
+          <label style="font-size:12.5px;color:var(--text-muted);margin-left:14px">School break:</label>
+          <input type="color" id="breakColorInput" />
+          <button id="resetBreakColorBtn" class="btn small">Reset</button>
+        </div>
+      </section>
+
+      <section class="settings-section">
         <h2>Public holidays (Vienna, Austria)</h2>
-        <p class="settings-hint">Pulls official national/Vienna public holidays from the free <a href="https://date.nager.at" target="_blank" rel="noopener">date.nager.at</a> service. This does <strong>not</strong> cover school break periods (Ferien) &mdash; those aren't public holidays and have to be entered manually below, since there's no reliable free feed for them.</p>
+        <p class="settings-hint">Pulls official national/Vienna public holidays from the free <a href="https://date.nager.at" target="_blank" rel="noopener">date.nager.at</a> service, plus Mother's Day &amp; Father's Day (computed locally as the 2nd Sunday of May/June — they're not statutory holidays so that feed doesn't carry them). This does <strong>not</strong> cover school break periods (Ferien) &mdash; those aren't public holidays and have to be entered manually below, since there's no reliable free feed for them.</p>
         <div class="inline-form">
           <input type="number" id="syncYear" placeholder="Year" style="width:90px" />
           <button id="syncHolidaysBtn" class="btn small primary">Sync from date.nager.at</button>

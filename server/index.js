@@ -343,9 +343,28 @@ app.delete('/api/holidays/:id', (req, res) => {
   res.status(204).end();
 });
 
-// Public holidays for Austria/Vienna via the free Nager.Date API.
-// Only touches entries this endpoint itself created (source: "nager") for
-// the requested year, so manually-added or imported holidays are untouched.
+// nth (1-based) occurrence of a weekday (0=Sun..6=Sat) in a given
+// year/month (1-12), as YYYY-MM-DD. Used for Mother's/Father's Day, which
+// aren't statutory holidays so Nager.Date doesn't carry them.
+function nthWeekdayOfMonth(year, month, weekday, n) {
+  const first = new Date(Date.UTC(year, month - 1, 1));
+  const offset = (weekday - first.getUTCDay() + 7) % 7;
+  const day = 1 + offset + (n - 1) * 7;
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+function computeObservances(year) {
+  return [
+    { date: nthWeekdayOfMonth(year, 5, 0, 2), label: '\u{1F490} Muttertag' }, // 2nd Sunday of May
+    { date: nthWeekdayOfMonth(year, 6, 0, 2), label: '\u{1F454} Vatertag' }, // 2nd Sunday of June
+  ];
+}
+
+// Public holidays for Austria/Vienna via the free Nager.Date API, plus
+// Mother's/Father's Day computed locally (they're observances, not
+// statutory holidays, so that API doesn't carry them). Only touches entries
+// this endpoint itself created (source "nager"/"observance") for the
+// requested year, so manually-added or imported holidays are untouched.
 app.post('/api/holidays/sync', async (req, res) => {
   const year = Number((req.body && req.body.year) || new Date().getFullYear());
   if (!Number.isInteger(year) || year < 2000 || year > 2100) {
@@ -367,11 +386,14 @@ app.post('/api/holidays/sync', async (req, res) => {
   }
 
   const schedule = readSchedule();
-  schedule.holidays = schedule.holidays.filter((h) => !(h.source === 'nager' && h.date.startsWith(String(year))));
+  schedule.holidays = schedule.holidays.filter((h) => !((h.source === 'nager' || h.source === 'observance') && h.date.startsWith(String(year))));
   for (const h of holidays) {
     // Vienna is subdivision AT-9; a null "counties" list means it applies nationwide.
     if (h.counties && !h.counties.includes('AT-9')) continue;
     schedule.holidays.push({ id: crypto.randomUUID(), date: h.date, label: h.localName, source: 'nager' });
+  }
+  for (const o of computeObservances(year)) {
+    schedule.holidays.push({ id: crypto.randomUUID(), date: o.date, label: o.label, source: 'observance' });
   }
   schedule.settings.publicHolidaySync.lastSyncedYear = year;
   schedule.settings.publicHolidaySync.lastSyncedAt = new Date().toISOString();
@@ -583,6 +605,24 @@ app.delete('/api/appointments/:id', (req, res) => {
   schedule.appointments = schedule.appointments.filter((a) => a.id !== req.params.id);
   writeSchedule(schedule);
   res.status(204).end();
+});
+
+// ---------------- Settings (appearance) ----------------
+
+app.put('/api/settings/appearance', (req, res) => {
+  const { holidayColor, breakColor } = req.body || {};
+  if (holidayColor !== undefined && holidayColor !== null && !isValidHex(holidayColor)) {
+    return res.status(400).json({ error: 'holidayColor must be a #rrggbb hex string or null' });
+  }
+  if (breakColor !== undefined && breakColor !== null && !isValidHex(breakColor)) {
+    return res.status(400).json({ error: 'breakColor must be a #rrggbb hex string or null' });
+  }
+  const schedule = readSchedule();
+  schedule.settings.appearance = schedule.settings.appearance || {};
+  if (holidayColor !== undefined) schedule.settings.appearance.holidayColor = holidayColor;
+  if (breakColor !== undefined) schedule.settings.appearance.breakColor = breakColor;
+  writeSchedule(schedule);
+  res.json(schedule.settings.appearance);
 });
 
 // ---------------- Startup ----------------

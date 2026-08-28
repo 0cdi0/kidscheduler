@@ -35,8 +35,52 @@
     renderHolidays();
     renderBreaks();
     renderAppointments();
+    renderAppearance();
     populateKidSelects();
   }
+
+  // Mixes accentHex into baseHex at the given ratio (0-1), in plain hex -
+  // matches app.js's mixHex (kept in sync deliberately: not using CSS
+  // color-mix() since html2canvas, used for PDF/PNG export on the main
+  // calendar page, can't parse it).
+  function mixHex(accentHex, baseHex, ratio) {
+    const a = accentHex.match(/[0-9a-f]{2}/gi).map((h) => parseInt(h, 16));
+    const b = baseHex.match(/[0-9a-f]{2}/gi).map((h) => parseInt(h, 16));
+    return '#' + a.map((v, i) => Math.round(v * ratio + b[i] * (1 - ratio)).toString(16).padStart(2, '0')).join('');
+  }
+
+  function applyAppearanceSettings() {
+    const appearance = (schedule.settings && schedule.settings.appearance) || {};
+    const root = document.documentElement;
+    const dark = currentEffectiveTheme() === 'dark';
+    const holidayAccent = appearance.holidayColor || (dark ? '#4caf50' : '#2e7d32');
+    const breakAccent = appearance.breakColor || (dark ? '#9ccc65' : '#7cb342');
+    const panel = dark ? '#242426' : '#ffffff';
+    root.style.setProperty('--holiday-accent', holidayAccent);
+    root.style.setProperty('--holiday-bg', mixHex(holidayAccent, panel, 0.18));
+    root.style.setProperty('--break-accent', breakAccent);
+    root.style.setProperty('--break-bg', mixHex(breakAccent, panel, 0.16));
+  }
+
+  function renderAppearance() {
+    applyAppearanceSettings();
+    const appearance = (schedule.settings && schedule.settings.appearance) || {};
+    el('holidayColorInput').value = appearance.holidayColor || '#2e7d32';
+    el('breakColorInput').value = appearance.breakColor || '#7cb342';
+  }
+
+  async function saveAppearance(patch) {
+    try {
+      const updated = await apiPut('/api/settings/appearance', patch);
+      schedule.settings.appearance = updated;
+      applyAppearanceSettings();
+    } catch (e) { alert(e.message); }
+  }
+
+  el('holidayColorInput').addEventListener('change', (e) => saveAppearance({ holidayColor: e.target.value }));
+  el('breakColorInput').addEventListener('change', (e) => saveAppearance({ breakColor: e.target.value }));
+  el('resetHolidayColorBtn').addEventListener('click', async () => { await saveAppearance({ holidayColor: null }); renderAppearance(); });
+  el('resetBreakColorBtn').addEventListener('click', async () => { await saveAppearance({ breakColor: null }); renderAppearance(); });
 
   function populateKidSelects() {
     const kidOptions = schedule.kids.filter((k) => k.active !== false)
@@ -424,17 +468,58 @@
     for (const a of [...schedule.appointments].sort((x, y) => x.date.localeCompare(y.date))) {
       const kid = schedule.kids.find((k) => k.id === a.kidId);
       const tr = document.createElement('tr');
-      tr.innerHTML = `<td>${kid ? kid.name : a.kidId}</td><td>${a.date}</td><td>${a.title}</td><td>${a.notes || ''}</td><td>${a.source}</td>`;
+
+      const kidTd = document.createElement('td');
+      kidTd.textContent = kid ? kid.name : a.kidId;
+      kidTd.style.whiteSpace = 'nowrap';
+
+      const dateTd = document.createElement('td');
+      const dateInput = document.createElement('input');
+      dateInput.type = 'date';
+      dateInput.value = a.date;
+      dateInput.addEventListener('change', () => saveAppointment(a.id, { date: dateInput.value }));
+      dateTd.appendChild(dateInput);
+
+      const titleTd = document.createElement('td');
+      const titleInput = document.createElement('input');
+      titleInput.type = 'text';
+      titleInput.value = a.title;
+      titleInput.addEventListener('change', () => saveAppointment(a.id, { title: titleInput.value }));
+      titleTd.appendChild(titleInput);
+
+      const notesTd = document.createElement('td');
+      const notesInput = document.createElement('input');
+      notesInput.type = 'text';
+      notesInput.value = a.notes || '';
+      notesInput.addEventListener('change', () => saveAppointment(a.id, { notes: notesInput.value || null }));
+      notesTd.appendChild(notesInput);
+
+      const sourceTd = document.createElement('td');
+      sourceTd.textContent = a.source;
+      sourceTd.style.whiteSpace = 'nowrap';
+
       const actionTd = document.createElement('td');
       const delBtn = document.createElement('button');
       delBtn.className = 'icon-btn-sm';
       delBtn.textContent = '×';
+      delBtn.title = 'Remove';
       delBtn.addEventListener('click', async () => {
         try { await apiDelete(`/api/appointments/${a.id}`); await reload(); } catch (err) { alert(err.message); }
       });
       actionTd.appendChild(delBtn);
-      tr.appendChild(actionTd);
+
+      tr.append(kidTd, dateTd, titleTd, notesTd, sourceTd, actionTd);
       tbody.appendChild(tr);
+    }
+  }
+
+  async function saveAppointment(id, patch) {
+    try {
+      const updated = await apiPut(`/api/appointments/${id}`, patch);
+      Object.assign(schedule.appointments.find((a) => a.id === id), updated);
+    } catch (e) {
+      alert(e.message);
+      renderAppointments();
     }
   }
 
@@ -765,6 +850,42 @@
       el('importResultMsg').textContent = `Failed: ${err.message}`;
     }
   }
+
+  // ---------------- Theme ----------------
+
+  const THEME_STORAGE_KEY = 'kidscheduler.theme';
+
+  function currentEffectiveTheme() {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* ignore */ }
+    if (stored === 'light' || stored === 'dark') return stored;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function updateThemeToggleIcon() {
+    const btn = el('themeToggle');
+    if (!btn) return;
+    const dark = currentEffectiveTheme() === 'dark';
+    btn.textContent = dark ? '☀️' : '\u{1F319}';
+    btn.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+  }
+
+  (function initTheme() {
+    let stored = null;
+    try { stored = localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* ignore */ }
+    if (stored === 'light' || stored === 'dark') document.documentElement.setAttribute('data-theme', stored);
+    updateThemeToggleIcon();
+    const btn = el('themeToggle');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const next = currentEffectiveTheme() === 'dark' ? 'light' : 'dark';
+        try { localStorage.setItem(THEME_STORAGE_KEY, next); } catch (e) { /* ignore */ }
+        document.documentElement.setAttribute('data-theme', next);
+        updateThemeToggleIcon();
+        if (schedule) applyAppearanceSettings();
+      });
+    }
+  })();
 
   reload().catch((e) => {
     document.body.innerHTML = '<p style="padding:40px;font-family:sans-serif">Could not reach the Kid Scheduler server.</p>';

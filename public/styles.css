@@ -7,8 +7,17 @@
   --text-muted: #6e6e73;
   --accent: #0a6dd6;
   --today-ring: #ff3b30;
+  /* --holiday-accent/--break-accent are user-configurable in Settings
+     (Appearance). --holiday-bg/--break-bg are NOT computed with CSS
+     color-mix() here - html2canvas (used for PDF/PNG export) can't parse
+     that function and throws on any exported view with a holiday/break day.
+     JS computes the tint in plain hex instead (applyAppearanceSettings) and
+     sets these three as inline styles; the literals below are just the
+     pre-JS/no-JS fallback. */
+  --holiday-accent: #2e7d32;
+  --break-accent: #7cb342;
   --holiday-bg: #e3f5e6;
-  --holiday-border: #2e7d32;
+  --holiday-border: var(--holiday-accent);
   --break-bg: #f4f8ef;
   --other-month-bg: #f6f6f8;
   --other-month-text: #b0b0b6;
@@ -17,7 +26,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #1c1c1e;
     --panel: #242426;
     --border: #38383a;
@@ -26,14 +35,34 @@
     --text-muted: #98989d;
     --accent: #3a9bff;
     --today-ring: #ff453a;
+    --holiday-accent: #4caf50;
+    --break-accent: #9ccc65;
     --holiday-bg: #1c3b23;
-    --holiday-border: #4caf50;
     --break-bg: #22301d;
     --other-month-bg: #1a1a1c;
     --other-month-text: #58585c;
     --hover-bg: #2a3540;
     --overlay: rgba(0, 0, 0, 0.6);
   }
+}
+/* Explicit in-app choice wins over prefers-color-scheme either direction. */
+:root[data-theme="dark"] {
+  --bg: #1c1c1e;
+  --panel: #242426;
+  --border: #38383a;
+  --border-strong: #48484a;
+  --text: #f2f2f7;
+  --text-muted: #98989d;
+  --accent: #3a9bff;
+  --today-ring: #ff453a;
+  --holiday-accent: #4caf50;
+  --break-accent: #9ccc65;
+  --holiday-bg: #1c3b23;
+  --break-bg: #22301d;
+  --other-month-bg: #1a1a1c;
+  --other-month-text: #58585c;
+  --hover-bg: #2a3540;
+  --overlay: rgba(0, 0, 0, 0.6);
 }
 
 * { box-sizing: border-box; }
@@ -116,6 +145,8 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
   color: #fff;
 }
 .btn.primary:hover { filter: brightness(1.08); }
+.btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.active:hover { filter: brightness(1.08); }
 
 .menu { position: relative; }
 .menu-dropdown {
@@ -312,11 +343,22 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
 }
 
 .day-cake {
-  position: absolute;
-  top: 4px;
-  left: 6px;
-  font-size: 12px;
+  font-size: 9.5px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.day-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.day-label.holiday-label { color: var(--holiday-border); }
+.day-label.break-label { color: var(--text-muted); }
 
 .day-kid-tags {
   display: flex;
@@ -328,6 +370,22 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
 .kid-tag {
   font-size: 10.5px;
   color: #fff;
+  padding: 1px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  border: 1px solid transparent;
+}
+.kid-tag-flipped {
+  background: transparent !important;
+  border-style: dashed;
+}
+.appt-tag {
+  font-size: 10px;
+  color: var(--text);
+  background: var(--other-month-bg);
+  border-left: 3px solid var(--accent);
   padding: 1px 4px;
   white-space: nowrap;
   overflow: hidden;
