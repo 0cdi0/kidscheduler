@@ -557,21 +557,42 @@
   let pendingImportRows = [];
 
   // School notices (a class newsletter, a whole-school events list) usually
-  // cover every class, but some rows are specific to one ("Schwimmunterricht
-  // 3A"). Matches Austrian-style class codes (1A-4D) and "MSK"
-  // (Mehrstufenklasse); "alle Klassen" / "alle" overrides any code found,
-  // since that phrasing explicitly means "everyone".
+  // cover every class, but some rows are specific to one - either a specific
+  // class code ("Schwimmunterricht 3A") or a grade-level phrase ("für die
+  // 3.+ 4.Klassen", "Verabschiedung der 4. Klassen") without ever naming a
+  // letter. "alle Klassen" overrides both, since that phrasing explicitly
+  // means "everyone" - but a bare "alle" (e.g. "MSK alle") only means "every
+  // MSK group", not "every class", so it does NOT override a grade
+  // restriction stated elsewhere in the same line.
   const CLASS_TOKEN_RE = /\b([1-4][A-D]|MSK)\b/g;
-  const ALL_CLASSES_RE = /\balle(?:\s+Klassen)?\b/i;
+  const GRADE_PHRASE_RE = /((?:[1-4]\.\s*(?:[+,]|und)?\s*)+)Klassen?\b/gi;
+  const ALL_CLASSES_RE = /\balle\s+Klassen\b/i;
+
+  function kidGradeNumber(schoolClass) {
+    const m = schoolClass && schoolClass.match(/^([1-4])/);
+    return m ? Number(m[1]) : null;
+  }
 
   function classifyRow(title, notes, targetClass) {
     const haystack = `${title} ${notes || ''}`;
-    if (ALL_CLASSES_RE.test(haystack)) return { classToken: null, classMismatch: false };
+    if (ALL_CLASSES_RE.test(haystack)) return { classLabel: null, classMismatch: false };
+
+    const gradeMatches = [...haystack.matchAll(GRADE_PHRASE_RE)];
+    if (gradeMatches.length) {
+      const grades = [...new Set(gradeMatches.flatMap((m) => [...m[1].matchAll(/[1-4]/g)].map((d) => Number(d[0]))))].sort();
+      const targetGrade = kidGradeNumber(targetClass);
+      return {
+        classLabel: `grade ${grades.join('+')}`,
+        classMismatch: !!targetGrade && !grades.includes(targetGrade),
+      };
+    }
+
     const tokens = [...new Set([...haystack.matchAll(CLASS_TOKEN_RE)].map((m) => m[1]))];
-    if (!tokens.length) return { classToken: null, classMismatch: false };
-    const classToken = tokens.join('+');
-    const mismatch = !!targetClass && !tokens.includes(targetClass);
-    return { classToken, classMismatch: mismatch };
+    if (!tokens.length) return { classLabel: null, classMismatch: false };
+    return {
+      classLabel: `class ${tokens.join('+')}`,
+      classMismatch: !!targetClass && !tokens.includes(targetClass),
+    };
   }
 
   function targetKid() {
@@ -588,8 +609,8 @@
       else if (Number(iso.slice(0, 4)) < thisYear - 2 || Number(iso.slice(0, 4)) > thisYear + 10) {
         error = `Implausible year - likely an OCR misread: "${r.rawDate}"`;
       } else if (!r.title) error = 'Missing title';
-      const { classToken, classMismatch } = classifyRow(r.title || '', r.notes || '', kid && kid.schoolClass);
-      return { rawDate: r.rawDate, title: r.title || '', notes: r.notes || '', iso, error, classToken, classMismatch, selected: !classMismatch };
+      const { classLabel, classMismatch } = classifyRow(r.title || '', r.notes || '', kid && kid.schoolClass);
+      return { rawDate: r.rawDate, title: r.title || '', notes: r.notes || '', iso, error, classLabel, classMismatch, selected: !classMismatch };
     });
   }
 
@@ -600,8 +621,8 @@
     const kid = targetKid();
     for (const r of pendingImportRows) {
       const wasDefaultSelection = r.selected === !r.classMismatch;
-      const { classToken, classMismatch } = classifyRow(r.title, r.notes, kid && kid.schoolClass);
-      r.classToken = classToken;
+      const { classLabel, classMismatch } = classifyRow(r.title, r.notes, kid && kid.schoolClass);
+      r.classLabel = classLabel;
       r.classMismatch = classMismatch;
       if (wasDefaultSelection) r.selected = !classMismatch;
     }
@@ -669,7 +690,7 @@
         <td><input type="text" class="pi-date" value="${escapeAttr(r.rawDate)}" size="12">${r.error ? `<div class="row-error-msg">${escapeHtml(r.error)}</div>` : ''}</td>
         <td>
           <input type="text" class="pi-title" value="${escapeAttr(r.title)}">
-          ${r.classToken ? `<div class="row-error-msg" style="color:${r.classMismatch ? 'var(--today-ring)' : 'var(--text-muted)'}">class ${escapeHtml(r.classToken)}${r.classMismatch && kid ? ` ≠ ${escapeHtml(kid.schoolClass)}` : ''}</div>` : ''}
+          ${r.classLabel ? `<div class="row-error-msg" style="color:${r.classMismatch ? 'var(--today-ring)' : 'var(--text-muted)'}">${escapeHtml(r.classLabel)}${r.classMismatch && kid && kid.schoolClass ? ` ≠ ${escapeHtml(kid.schoolClass)}` : ''}</div>` : ''}
         </td>
         <td><input type="text" class="pi-notes" value="${escapeAttr(r.notes)}"></td>
         <td><button type="button" class="icon-btn-sm pi-remove" title="Remove row">×</button></td>

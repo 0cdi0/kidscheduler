@@ -89,12 +89,14 @@ real app, still pointed at the same Tailscale address.
     also shown so you can fix it and re-parse without re-uploading.
 
   A class newsletter usually lists events for the whole school, not just
-  one kid's class — so if a row's title mentions a specific class code
-  (`3A`, `4B`, `MSK`, …) that doesn't match the target kid's Class setting,
-  it's unchecked by default in the preview (with a note explaining why) so
-  it doesn't get imported by mistake. "alle Klassen" ("all classes")
-  overrides that and stays checked. Set each kid's Class in the Kids
-  section above for this to kick in.
+  one kid's class — so if a row mentions a different class or grade than
+  the target kid's Class setting, it's unchecked by default in the preview
+  (with a note explaining why) so it doesn't get imported by mistake. Both
+  forms of wording are recognized: a specific code (`3A`, `4B`, `MSK`) and a
+  grade-level phrase (`für die 3.+ 4.Klassen`, `Verabschiedung der 4.
+  Klassen`) — grade is read off the leading digit of the kid's Class (e.g.
+  `1A` → grade 1). "alle Klassen" ("all classes") always stays checked.
+  Set each kid's Class in the Kids section above for this to kick in.
 
 ## Optional: PDF import (OCR)
 
