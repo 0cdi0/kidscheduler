@@ -53,8 +53,8 @@
     const appearance = (schedule.settings && schedule.settings.appearance) || {};
     const root = document.documentElement;
     const dark = currentEffectiveTheme() === 'dark';
-    const holidayAccent = appearance.holidayColor || (dark ? '#4caf50' : '#2e7d32');
-    const breakAccent = appearance.breakColor || (dark ? '#9ccc65' : '#7cb342');
+    const holidayAccent = appearance.holidayColor || (dark ? '#ff5c5c' : '#c1121f');
+    const breakAccent = appearance.breakColor || (dark ? '#ff8f6b' : '#e07856');
     const panel = dark ? '#242426' : '#ffffff';
     root.style.setProperty('--holiday-accent', holidayAccent);
     root.style.setProperty('--holiday-bg', mixHex(holidayAccent, panel, 0.18));
@@ -65,8 +65,8 @@
   function renderAppearance() {
     applyAppearanceSettings();
     const appearance = (schedule.settings && schedule.settings.appearance) || {};
-    el('holidayColorInput').value = appearance.holidayColor || '#2e7d32';
-    el('breakColorInput').value = appearance.breakColor || '#7cb342';
+    el('holidayColorInput').value = appearance.holidayColor || '#c1121f';
+    el('breakColorInput').value = appearance.breakColor || '#e07856';
   }
 
   async function saveAppearance(patch) {

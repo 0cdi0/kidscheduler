@@ -14,11 +14,11 @@
      JS computes the tint in plain hex instead (applyAppearanceSettings) and
      sets these three as inline styles; the literals below are just the
      pre-JS/no-JS fallback. */
-  --holiday-accent: #2e7d32;
-  --break-accent: #7cb342;
-  --holiday-bg: #e3f5e6;
+  --holiday-accent: #c1121f;
+  --break-accent: #e07856;
+  --holiday-bg: #fbe2e2;
   --holiday-border: var(--holiday-accent);
-  --break-bg: #f4f8ef;
+  --break-bg: #fce9e1;
   --other-month-bg: #f6f6f8;
   --other-month-text: #b0b0b6;
   --hover-bg: #f2f7ff;
@@ -35,10 +35,10 @@
     --text-muted: #98989d;
     --accent: #3a9bff;
     --today-ring: #ff453a;
-    --holiday-accent: #4caf50;
-    --break-accent: #9ccc65;
-    --holiday-bg: #1c3b23;
-    --break-bg: #22301d;
+    --holiday-accent: #ff5c5c;
+    --break-accent: #ff8f6b;
+    --holiday-bg: #3a1f1f;
+    --break-bg: #3a2620;
     --other-month-bg: #1a1a1c;
     --other-month-text: #58585c;
     --hover-bg: #2a3540;
@@ -55,10 +55,10 @@
   --text-muted: #98989d;
   --accent: #3a9bff;
   --today-ring: #ff453a;
-  --holiday-accent: #4caf50;
-  --break-accent: #9ccc65;
-  --holiday-bg: #1c3b23;
-  --break-bg: #22301d;
+  --holiday-accent: #ff5c5c;
+  --break-accent: #ff8f6b;
+  --holiday-bg: #3a1f1f;
+  --break-bg: #3a2620;
   --other-month-bg: #1a1a1c;
   --other-month-text: #58585c;
   --hover-bg: #2a3540;
