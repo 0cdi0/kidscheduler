@@ -48,9 +48,11 @@ real app, still pointed at the same Tailscale address.
 - **👨 Dad's View / 👩 Mom's View** (formerly "Flip Selection") — shows the
   *same* selected kids' days with their *other* parent instead (e.g. Philipp
   & Johannes selected, switch to Mom's View, and you're looking at the days
-  they're with their mother — tags switch to an outlined style, and the
-  toggle itself turns purple/blue to match, so it's unmistakable which view
-  you're in).
+  they're with their mother). Kid tags look identical either way (solid,
+  each kid's own color) — the toggle itself, which turns purple/blue to
+  match, is what tells you which view you're in. A PDF export carries that
+  same label as a page title, since a printed page has no toggle to glance
+  at.
 - **Click any day** — set each kid's status for that day independently
   (With us / With the other parent), add a note, and add per-kid
   appointments (shown on the calendar as `Kid: Title`, in that kid's
@@ -64,7 +66,8 @@ real app, still pointed at the same Tailscale address.
     Outlook.
   - *PDF* — a snapshot of the current view; from Year view this is a
     **multi-page PDF, one full-size page per month** instead of one
-    illegibly squished page.
+    illegibly squished page. Every page prints a title with the month (or
+    period) and which of Dad's/Mom's View it shows.
   - *PNG* — a single-image snapshot of the current view.
 
   Downloaded filenames use a full 4-digit year range for the whole school

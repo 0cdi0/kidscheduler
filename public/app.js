@@ -362,19 +362,15 @@
     for (const w of WEEKDAYS) row.appendChild(Object.assign(document.createElement('div'), { textContent: w }));
   }
 
-  function buildKidTag(kid, flipped) {
+  // Same solid style whether we're in Dad's or Mom's View - the toggle
+  // itself (and, on exports, the page title) is what tells you which
+  // perspective you're looking at, so the tag doesn't need its own
+  // dashed/outlined variant (which read as harder to scan at a glance).
+  function buildKidTag(kid) {
     const tag = document.createElement('div');
     tag.className = 'kid-tag';
-    if (flipped) {
-      tag.classList.add('kid-tag-flipped');
-      tag.style.borderColor = kid.color;
-      tag.style.color = kid.color;
-      const otherLabel = otherParentLabelFor(kid);
-      tag.textContent = otherLabel ? `${kid.name} \u00b7 ${otherLabel}` : kid.name;
-    } else {
-      tag.style.background = kid.color;
-      tag.textContent = kid.name;
-    }
+    tag.style.background = kid.color;
+    tag.textContent = kid.name;
     return tag;
   }
 
@@ -444,7 +440,7 @@
       for (const kid of activeKids()) {
         if (!selectedKids.has(kid.id)) continue;
         if (!kidShownOnDay(kid, dayData)) continue;
-        tags.appendChild(buildKidTag(kid, showOtherParent));
+        tags.appendChild(buildKidTag(kid));
       }
       for (const appt of appts) tags.appendChild(buildApptTag(appt, kidById(appt.kidId)));
       cellEl.appendChild(tags);
@@ -586,8 +582,7 @@
             if (kidShownOnDay(kid, dayData)) {
               const dot = document.createElement('span');
               dot.className = 'mini-dot';
-              if (showOtherParent) dot.style.border = `1px solid ${kid.color}`;
-              else dot.style.background = kid.color;
+              dot.style.background = kid.color;
               dots.appendChild(dot);
             }
           }
@@ -917,17 +912,31 @@
     finally { btn.disabled = false; }
   }
 
-  function addCanvasAsPage(pdf, canvas, isFirstPage) {
+  function parentViewLabel() {
+    return showOtherParent ? "Mom's View" : "Dad's View";
+  }
+
+  // A printed/shared PDF has no topbar to glance at, so each page prints
+  // its own title - which month, and which of Dad's/Mom's View it shows -
+  // since tags themselves no longer look different between the two.
+  function addCanvasAsPage(pdf, canvas, isFirstPage, title) {
     if (!isFirstPage) {
       const orientation = canvas.width >= canvas.height ? 'landscape' : 'portrait';
       pdf.addPage('a4', orientation);
     }
     const pageWidth = pdf.internal.pageSize.getWidth();
     const pageHeight = pdf.internal.pageSize.getHeight();
-    const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
+    const titleHeight = title ? 28 : 0;
+    if (title) {
+      pdf.setFontSize(14);
+      pdf.setTextColor('#1c1c1e');
+      pdf.text(title, pageWidth / 2, 20, { align: 'center' });
+    }
+    const availableHeight = pageHeight - titleHeight;
+    const ratio = Math.min(pageWidth / canvas.width, availableHeight / canvas.height);
     const w = canvas.width * ratio;
     const h = canvas.height * ratio;
-    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageWidth - w) / 2, (pageHeight - h) / 2, w, h);
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', (pageWidth - w) / 2, titleHeight + (availableHeight - h) / 2, w, h);
   }
 
   // Year view crammed onto one page is illegible, so instead render every
@@ -963,7 +972,8 @@
         backgroundColor: getComputedStyle(document.body).getPropertyValue('background-color') || '#ffffff',
         scale: Math.min(2, window.devicePixelRatio || 1.5),
       });
-      addCanvasAsPage(pdf, canvas, i === 0);
+      const monthLabel = new Date(y, m, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      addCanvasAsPage(pdf, canvas, i === 0, `${monthLabel} · ${parentViewLabel()}`);
     }
 
     view = savedView;
@@ -984,7 +994,7 @@
         const { jsPDF } = window.jspdf;
         const orientation = canvas.width >= canvas.height ? 'landscape' : 'portrait';
         const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' });
-        addCanvasAsPage(pdf, canvas, true);
+        addCanvasAsPage(pdf, canvas, true, `${el('periodTitle').textContent} · ${parentViewLabel()}`);
         pdf.save(`kidscheduler-${viewSlug()}-${slugSelection()}.pdf`);
       }
     } catch (e) { alert('PDF export failed: ' + e.message); }

@@ -377,10 +377,6 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
   line-height: 1.5;
   border: 1px solid transparent;
 }
-.kid-tag-flipped {
-  background: transparent !important;
-  border-style: dashed;
-}
 .appt-tag {
   font-size: 10px;
   color: var(--text);
