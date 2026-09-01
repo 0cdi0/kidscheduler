@@ -796,11 +796,18 @@
 
   function selectAll() { selectedKids = new Set(activeKids().map((k) => k.id)); persistSelection(); renderAll(); }
   function clearAll() { selectedKids = new Set(); persistSelection(); renderAll(); }
-  function toggleOtherParentView() {
-    showOtherParent = !showOtherParent;
+  function setOtherParentView(next) {
+    showOtherParent = next;
     try { localStorage.setItem(OTHER_PARENT_STORAGE_KEY, showOtherParent ? '1' : '0'); } catch (e) { /* ignore */ }
-    el('invertBtn').classList.toggle('active', showOtherParent);
+    updateParentViewToggle();
     renderAll();
+  }
+
+  function updateParentViewToggle() {
+    const toggle = el('parentViewToggle');
+    if (!toggle) return;
+    toggle.querySelector('.dad').classList.toggle('active', !showOtherParent);
+    toggle.querySelector('.mom').classList.toggle('active', showOtherParent);
   }
 
   // ---------------- Export ----------------
@@ -894,7 +901,10 @@
     if (view === 'month') return focusDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toLowerCase().replace(/\s+/g, '-');
     if (view === 'week') return `week-of-${isoOfDate(startOfWeekMonday(focusDate))}`;
     const sy = currentSchoolYear();
-    return sy ? sy.label.replace('/', '-') : 'year';
+    // Full 4-digit years read more clearly in a filename than the display
+    // label's shorthand (e.g. "schoolyear-2026-2027" instead of "2026-27",
+    // which can look like a truncated date rather than a year range).
+    return sy ? `schoolyear-${sy.start.slice(0, 4)}-${sy.end.slice(0, 4)}` : 'year';
   }
 
   async function exportPNG() {
@@ -960,7 +970,7 @@
     focusDate = savedFocus;
     renderAll();
 
-    pdf.save(`kidscheduler-${(sy ? sy.label.replace('/', '-') : 'year')}-${slugSelection()}.pdf`);
+    pdf.save(`kidscheduler-${viewSlug()}-${slugSelection()}.pdf`);
   }
 
   async function exportPDF() {
@@ -1035,7 +1045,8 @@
 
     el('selectAllBtn').addEventListener('click', selectAll);
     el('clearAllBtn').addEventListener('click', clearAll);
-    el('invertBtn').addEventListener('click', toggleOtherParentView);
+    el('parentViewToggle').querySelector('.dad').addEventListener('click', () => setOtherParentView(false));
+    el('parentViewToggle').querySelector('.mom').addEventListener('click', () => setOtherParentView(true));
 
     el('yearMenuBtn').addEventListener('click', (e) => { e.stopPropagation(); el('yearDropdown').classList.toggle('hidden'); });
     el('exportBtn').addEventListener('click', (e) => { e.stopPropagation(); el('exportDropdown').classList.toggle('hidden'); });
@@ -1083,7 +1094,7 @@
 
     selectedKids = loadSelection();
     try { showOtherParent = localStorage.getItem(OTHER_PARENT_STORAGE_KEY) === '1'; } catch (e) { /* ignore */ }
-    el('invertBtn').classList.toggle('active', showOtherParent);
+    updateParentViewToggle();
     focusDate = new Date();
     syncSchoolYearToFocus();
     if (!currentSchoolYearId) {

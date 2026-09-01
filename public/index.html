@@ -37,7 +37,10 @@
       </div>
     </div>
     <div class="topbar-group">
-      <button id="invertBtn" class="btn" title="Show the selected kids' days with their OTHER parent instead">Flip Selection</button>
+      <div class="parent-view-toggle" id="parentViewToggle" title="Show the selected kids' days with us, or with their other parent">
+        <button type="button" class="parent-view-btn dad active" data-flip="false">&#128104; Dad's View</button>
+        <button type="button" class="parent-view-btn mom" data-flip="true">&#128105; Mom's View</button>
+      </div>
       <div class="menu" id="exportMenu">
         <button id="exportBtn" class="btn primary">Export &#9662;</button>
         <div class="menu-dropdown hidden" id="exportDropdown">

@@ -45,10 +45,12 @@ real app, still pointed at the same Tailscale address.
   "Aleks & Luis"), to show or hide them on the calendar. Each kid has its own
   color swatch; click it to pick a different one, per kid. On a phone, the
   ☰ button opens this as a slide-in panel.
-- **Flip Selection** — shows the *same* selected kids' days with their
-  *other* parent instead (e.g. Philipp & Johannes selected, hit Flip, and
-  you're looking at the days they're with their mother — the tags switch to
-  an outlined style so it's clear you're looking at the flipped view).
+- **👨 Dad's View / 👩 Mom's View** (formerly "Flip Selection") — shows the
+  *same* selected kids' days with their *other* parent instead (e.g. Philipp
+  & Johannes selected, switch to Mom's View, and you're looking at the days
+  they're with their mother — tags switch to an outlined style, and the
+  toggle itself turns purple/blue to match, so it's unmistakable which view
+  you're in).
 - **Click any day** — set each kid's status for that day independently
   (With us / With the other parent), add a note, and add per-kid
   appointments (shown on the calendar as `Kid: Title`, in that kid's
@@ -64,6 +66,10 @@ real app, still pointed at the same Tailscale address.
     **multi-page PDF, one full-size page per month** instead of one
     illegibly squished page.
   - *PNG* — a single-image snapshot of the current view.
+
+  Downloaded filenames use a full 4-digit year range for the whole school
+  year (`kidscheduler-schoolyear-2026-2027-...`) rather than the display
+  label's shorthand ("2026/27"), which read ambiguously in a filename.
 
 ## Settings (⚙ top right)
 

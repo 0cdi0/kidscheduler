@@ -511,6 +511,30 @@ button, input, textarea, .modal, .menu-dropdown, .swatch, .color-input {
 .view-switch button.active { background: var(--accent); color: #fff; }
 .view-switch button:hover:not(.active) { background: var(--hover-bg); }
 
+/* Flip Selection, restyled as an explicit two-state switch: purple for
+   "with us" (Dad's View, the default), blue for "with the other parent"
+   (Mom's View) - the same purple/blue already used for the two kid groups,
+   so the toggle itself reads as part of the family's color language. */
+.parent-view-toggle {
+  display: flex;
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
+}
+.parent-view-btn {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 12px;
+  background: var(--panel);
+  color: var(--text);
+  border: none;
+  border-right: 1px solid var(--border-strong);
+  cursor: pointer;
+}
+.parent-view-btn:last-child { border-right: none; }
+.parent-view-btn:hover:not(.active) { background: var(--hover-bg); }
+.parent-view-btn.dad.active { background: #6b4c9a; border-color: #6b4c9a; color: #fff; }
+.parent-view-btn.mom.active { background: #2e6f9e; border-color: #2e6f9e; color: #fff; }
+
 #periodTitle {
   font-size: 17px;
   font-weight: 600;
