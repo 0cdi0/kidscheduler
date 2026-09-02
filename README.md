@@ -43,8 +43,11 @@ real app, still pointed at the same Tailscale address.
   your OS setting but remembers your choice per browser after that.
 - **Sidebar** — tick/untick any kid, or a whole group ("Philipp & Johannes" /
   "Aleks & Luis"), to show or hide them on the calendar. Each kid has its own
-  color swatch; click it to pick a different one, per kid. On a phone, the
-  ☰ button opens this as a slide-in panel.
+  color swatch; click it to pick a different one, per kid. The number next
+  to each kid's name is their day count for the month currently on screen —
+  days with us in Dad's View, or days with the other parent in Mom's View;
+  it updates live with the toggle (hover it to see which it's counting). On
+  a phone, the ☰ button opens this as a slide-in panel.
 - **👨 Dad's View / 👩 Mom's View** (formerly "Flip Selection") — shows the
   *same* selected kids' days with their *other* parent instead (e.g. Philipp
   & Johannes selected, switch to Mom's View, and you're looking at the days

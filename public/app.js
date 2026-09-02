@@ -290,7 +290,8 @@
 
     const count = document.createElement('span');
     count.className = 'kid-count';
-    count.textContent = countKidDaysInMonth(kid.id);
+    count.textContent = countKidDaysInMonth(kid);
+    count.title = showOtherParent ? `Days with ${otherParentLabelFor(kid) || 'the other parent'} this month` : 'Days with us this month';
 
     row.appendChild(label);
     row.appendChild(colorInput);
@@ -298,12 +299,16 @@
     return row;
   }
 
-  function countKidDaysInMonth(kidId) {
+  // Counts the current parent view's days (with us, or with the other
+  // parent when flipped) for the focused month - kept in sync with the
+  // Dad's/Mom's View toggle so it answers "how many days this month".
+  function countKidDaysInMonth(kid) {
     const y = focusDate.getFullYear();
     const m = focusDate.getMonth();
+    const lastDay = new Date(y, m + 1, 0).getDate();
     let n = 0;
-    for (const [iso, day] of Object.entries(schedule.days)) {
-      if (Number(iso.slice(0, 4)) === y && Number(iso.slice(5, 7)) - 1 === m && day.kids && day.kids[kidId]) n++;
+    for (let d = 1; d <= lastDay; d++) {
+      if (kidShownOnDay(kid, schedule.days[toISO(y, m, d)])) n++;
     }
     return n;
   }
